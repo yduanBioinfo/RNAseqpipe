@@ -1,0 +1,158 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+    <html>
+      <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>KEGG Automatic Annotation Server</title>
+        <link rel="stylesheet" href="/tools/kaas/style.css" type="text/css">
+ </head>
+
+ <body>
+
+ <div id="logo">
+ <a href="/tools/kaas/" target="_top">
+ <img src="/tools/kaas/img/aas.gif" width="160" height="60" alt="kaas_logo" border="0">
+ </a>
+ </div>
+
+  <h1>Query List</h1>
+
+  <!-- begin{announce} -->
+  <!--
+  <br clear="all">
+  <div style="color:red;margin-left:30px;">
+  For system maintenance, KAAS service will not be available during the following time.<br>
+  Oct 30 (Fri) 18:00:00 - Oct 31 (Sat) 18:00:00 (JST) 2015.<br>
+  All jobs runnning at Oct 30 (Fri) 18:00:00 will be terminated.<br>
+  Sorry for the inconveniences.
+  </div>
+  -->
+  <!-- end{announce} -->
+
+  <div class="menu">
+   <ul>
+    <li><a href="/tools/kaas/" target="_top">Home</a></li>
+    <li class="help"><a href="/tools/kaas/help.html" target="_top">Help</a></li>
+   </ul>
+  </div>
+
+  <div id="main">
+
+   <p class='sub'>aqua_kaas@126.com</p>
+
+   <form method="post" action="kaas_main">
+
+   <table border="0" cellpadding="5" cellspacing="0">
+    <tr>
+     <td class="list_a">
+      ID
+     </td>
+     <td class="list_b">
+      name
+     </td>
+     <td class="list_a">
+      state
+     </td>
+     <td class="list_b">
+      result
+     </td>
+     <td class="list_a">
+      start (UTC)
+     </td>
+     <td class="list_b">
+      end (UTC)
+     </td>
+     <td class="list_a">
+      retry
+     </td>
+     <td class="list_b" align='center'>
+      <input type="submit" class="button" value=" Remove ">
+     </td>
+    </tr>
+    <tr>
+     <td class='list_a'>      <a href="kaas_main?mode=queryinfo&amp;id=1467711608&amp;mail=aqua_kaas@126.com">1467711608</a>
+     </td>
+     <td class='list_b'>      query_name
+     </td>
+     <td class='list_a'>      failed
+     </td>
+     <td class='list_b'>           </td>
+     <td class='list_a'>      7/5 9:40 2016
+     </td>
+     <td class='list_b'>           </td>
+     <td class='list_a'>      <a href='kaas_main?mode=retry&amp;id=1467711608&amp;mail=aqua_kaas@126.com'>retry</a>
+     </td>
+     <td class='list_b' align='center'>      <input type='checkbox' name='remove_id' value='1467711608'>
+     </td>
+    </tr>
+    <tr>
+     <td class='list_a'>      <a href="kaas_main?mode=queryinfo&amp;id=1467712302&amp;mail=aqua_kaas@126.com">1467712302</a>
+     </td>
+     <td class='list_b'>      query_name
+     </td>
+     <td class='list_a'>      complete
+     </td>
+     <td class='list_b'>      <a href="kaas_main?mode=map&amp;id=1467712302&amp;mail=aqua_kaas@126.com">html</a>, <a href="/tools/kaas/files/dl/1467712302/query.ko">text</a>
+     </td>
+     <td class='list_a'>      7/5 9:51 2016
+     </td>
+     <td class='list_b'>      7/5 9:53 2016
+     </td>
+     <td class='list_a'>           </td>
+     <td class='list_b' align='center'>      <input type='checkbox' name='remove_id' value='1467712302'>
+     </td>
+    </tr>
+    <tr>
+     <td class='list_a'>      <a href="kaas_main?mode=queryinfo&amp;id=1467722906&amp;mail=aqua_kaas@126.com">1467722906</a>
+     </td>
+     <td class='list_b'>      query_name
+     </td>
+     <td class='list_a'>      complete
+     </td>
+     <td class='list_b'>      <a href="kaas_main?mode=map&amp;id=1467722906&amp;mail=aqua_kaas@126.com">html</a>, <a href="/tools/kaas/files/dl/1467722906/query.ko">text</a>
+     </td>
+     <td class='list_a'>      7/5 12:48 2016
+     </td>
+     <td class='list_b'>      7/5 12:50 2016
+     </td>
+     <td class='list_a'>           </td>
+     <td class='list_b' align='center'>      <input type='checkbox' name='remove_id' value='1467722906'>
+     </td>
+    </tr>
+    <tr>
+     <td class='list_a'>      <a href="kaas_main?mode=queryinfo&amp;id=1467723097&amp;mail=aqua_kaas@126.com">1467723097</a>
+     </td>
+     <td class='list_b'>      query_name
+     </td>
+     <td class='list_a'>      complete
+     </td>
+     <td class='list_b'>      <a href="kaas_main?mode=map&amp;id=1467723097&amp;mail=aqua_kaas@126.com">html</a>, <a href="/tools/kaas/files/dl/1467723097/query.ko">text</a>
+     </td>
+     <td class='list_a'>      7/5 12:51 2016
+     </td>
+     <td class='list_b'>      7/5 12:53 2016
+     </td>
+     <td class='list_a'>           </td>
+     <td class='list_b' align='center'>      <input type='checkbox' name='remove_id' value='1467723097'>
+     </td>
+    </tr>
+   </table>
+   <input type='hidden' name='mail' value='aqua_kaas@126.com'>
+   <input type='hidden' name='mode' value='remove'>
+   </form>
+<br>
+
+  </div>
+
+  <div class="menu">
+   <ul>
+    <li><a href="/feedback/?category=kaas">Feedback</a></li>
+    <li><a href="/kegg/kegg2.html" target="_top">KEGG2</a></li>
+    <li><a href="/kegg/" target="_top">KEGG</a></li>
+    <li><a href="/" target="_top">GenomeNet</a></li>
+    <li class="lab"><a href="http://kegg.org/" target="_top">Kanehisa Lab.</a></li>
+   </ul>
+  </div>
+  <!-- gn03 -->
+  </body>
+</html>
+

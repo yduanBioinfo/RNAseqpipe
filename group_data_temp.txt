@@ -1,0 +1,21 @@
+<dataset1>
+filetype=fastq
+library=PE#SE
+2014-11-BB1	/home/yduan/data/growth/ruibo/pip/shorttest/2014-11-BB1.read1.fastq	/home/yduan/data/growth/ruibo/pip/shorttest/2014-11-BB1.read2.fastq
+2014-11-BB2	/home/yduan/data/growth/ruibo/pip/shorttest/2014-11-BB2.read1.fastq	/home/yduan/data/growth/ruibo/pip/shorttest/2014-11-BB2.read2.fastq
+2014-11-BB3	/home/yduan/data/growth/ruibo/pip/shorttest/2014-11-BB3.read1.fastq	/home/yduan/data/growth/ruibo/pip/shorttest/2014-11-BB3.read2.fastq
+test	/home/yduan/data/growth/ruibo/pip/shorttest/test1     /home/yduan/data/growth/ruibo/pip/shorttest/test2
+</dataset1>
+
+<dataset2>
+filetype=fastq
+library=SE
+</dataset2>
+
+<GROUP>
+sample	bodysize	date
+2014-11-BB1	Big	15
+2014-11-BB2	Big	16
+2014-11-BB3	Small	15
+test	Small	16
+</GROUP>

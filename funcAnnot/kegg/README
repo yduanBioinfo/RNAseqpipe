@@ -1,0 +1,18 @@
+12-28kegg_annot.txt chose 40 specise to KAAS annot
+while 12-29kegg_annot.txt only chose human and dr to KAAS annot
+
+*****************************************************
+using keggenrich.sh to get kegg map enrichment result.
+[requiry]:
+./kodb; keggenrich.sh; mykeggenrich.R; keggCountal.py;
+[usage] ./keggenrich.sh mykeggannot_file.txt
+result:
+mykeggannot_file.txt.kg
+mykeggannot_file.txt.kg.OUT enrichment
+mykeggannot_file.txt.kg.Diff p < 0.05
+mykeggannot_file.txt.kg.adjDiff adj_pval <0.05(fdr)
+***************************************************
+
+***************************************************
+using kegg_annot2mapper.py to generate keggmapper required file
+[infile]: keggannot_file.txt gene_exp_file.txt(frome NOISeq)

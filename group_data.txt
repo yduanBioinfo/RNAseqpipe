@@ -1,0 +1,23 @@
+<dataset1>
+filetype=fastq
+library=PE#SE
+15_3_BB1	/home/yduan/data/growth/ruibo/2015-3-BB1.read1_Clean.fastq	/home/yduan/data/growth/ruibo/2015-3-BB1.read2_Clean.fastq
+15_3_BB2	/home/yduan/data/growth/ruibo/2015-3-BB2.read1_Clean.fastq	/home/yduan/data/growth/ruibo/2015-3-BB2.read2_Clean.fastq
+15_3_SB2	/home/yduan/data/growth/ruibo/2015-3-SB2.read1_Clean.fastq	/home/yduan/data/growth/ruibo/2015-3-SB2.read2_Clean.fastq
+15_3_SB5	/home/yduan/data/growth/ruibo/2015-3-SB5.read1_Clean.fastq	/home/yduan/data/growth/ruibo/2015-3-SB5.read2_Clean.fastq 
+</dataset1>
+
+15_3_SB1	/home/yduan/data/growth/ruibo/2015-3-SB1.read1_Clean.fastq	/home/yduan/data/growth/ruibo/2015-3-SB1.read2_Clean.fastq
+15_3_SB1	Small
+<dataset2>
+filetype=fastq
+library=SE
+</dataset2>
+
+<GROUP>
+sample	bodysize
+15_3_BB1	Big
+15_3_BB2	Big
+15_3_SB2	Small
+15_3_SB5	Small
+</GROUP>

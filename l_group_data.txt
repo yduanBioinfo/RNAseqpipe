@@ -1,0 +1,25 @@
+<dataset1>
+filetype=fastq
+library=PE#SE
+14_9_BL2	/home/yduan/data/growth/ruibo/BL2.read1_Clean.fq	/home/yduan/data/growth/ruibo/BL2.read2_Clean.fq
+14_9_BL5	/home/yduan/data/growth/ruibo/BL5.read1_Clean.fq	/home/yduan/data/growth/ruibo/BL5.read2_Clean.fq
+14_9_BL6	/home/yduan/data/growth/ruibo/BL6.read1_Clean.fq	/home/yduan/data/growth/ruibo/BL6.read2_Clean.fq
+14_9_SL3	/home/yduan/data/growth/ruibo/SL3.read1_Clean.fq	/home/yduan/data/growth/ruibo/SL3.read2_Clean.fq
+14_9_SL5	/home/yduan/data/growth/ruibo/SL5.read1_Clean.fq	/home/yduan/data/growth/ruibo/SL5.read2_Clean.fq
+14_9_SL6	/home/yduan/data/growth/ruibo/SL6.read1_Clean.fq	/home/yduan/data/growth/ruibo/SL6.read2_Clean.fq
+</dataset1>
+
+<dataset2>
+filetype=fastq
+library=SE
+</dataset2>
+
+<GROUP>
+sample	bodysize
+14_9_BL2	Big
+14_9_BL5	Big
+14_9_BL6	Big
+14_9_SL3	Small
+14_9_SL5	Small
+14_9_SL6	Small
+</GROUP>
