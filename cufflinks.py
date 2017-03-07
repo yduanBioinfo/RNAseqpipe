@@ -5,8 +5,10 @@ _version = 0.2.1
 '''
 
 import sys, os, copy
+import itertools
 from collections import OrderedDict as Ordic
 from progsuit import Configuration, Prog_Rsp
+from multiprocessing import Pool
 
 def cufflink(conf,bamf,outpath,silence=False,thre=0):
 	#conf if configuration obj.
@@ -18,55 +20,28 @@ def cufflink(conf,bamf,outpath,silence=False,thre=0):
 	cufflink = Prog_Rsp(conf,progname,order1,order2,silence)
 	return cufflink.run()
 
+def cufflink_star(a_b):
+	# convert f([1,2]) to f(1,2)
+	return cufflink(*a_b)
+
 def cufflinks(conf,bamfs,outpath=None,silence=False,maxp=20):
 	#conf is a Configuration obj
 	#bamfs: bam/sam files [list]
 	#if outpath there isn't a specific outpath,
 	#out transcripts.gtf should write in the same dir of bam file.
-	import time
-	assert isinstance(bamfs,list)
-	
-	def child():
-		cufflink(myconf,bamf,path,silence)
-		os._exit(0)
-		
 	myconf = conf
 	outfiles = []
+	def add_trans(path):
+		return path+"/transcripts.gtf"
+
 	if outpath and len(bamfs) != len(outpath):
 		error_handle(1,"cufflinks")
-	
-	try:
-		thre = myconf["cufflinks"]["-p"]#thread for cufflink: -p
-	except:
-		thre = 4
-	max_ = maxp // int(thre)#max_: max subprocess should be created
-	pids = []#save pid of subprocess
-	for i in range(len(bamfs)):
-		bamf = bamfs[i]
-		try:
-			path = outpath[i]
-		except:
-			path = os.path.dirname(bamf)
-		
-		pid = os.fork()
-		if pid <= 0:
-			break
-		outfiles.append(path+"/transcripts.gtf")#parent process
-		
-		pids.append(pid)
-		if len(pids) == max_:
-			myid, status = os.wait()
-			pids.remove(myid)
-			
-	if pid == 0:
-		child()
-		
-	try:#waiting for all threads done
-		while 1:
-			os.wait()
-	except OSError:
-		pass
-		
+	if not outpath:
+		outpath = map(os.path.dirname,bamfs)
+	outfiles = map(add_trans,outpath)
+
+	pool = Pool(maxp)
+	pool.map(cufflink_star,itertools.izip(itertools.repeat(myconf),bamfs,outpath,itertools.repeat(silence)))
 	return outfiles
 
 def cuffmerge(conf,assembly,outpath,silence=False):
