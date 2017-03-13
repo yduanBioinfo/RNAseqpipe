@@ -391,6 +391,23 @@ def getAbsPath(inpath,default='./tmp'):
 		os.makedirs(inpath)
 	return os.path.abspath(inpath)
 	
+def matchpath(names1,names2,mypath):#hidden bugs
+	#retrieve path for names1 or names2 in mypath(list)
+	#mostly required by DE step.
+
+	assert isinstance(names1,list) and isinstance(names2,list) and isinstance(mypath,list)
+	
+	def getmatch(names,paths):
+		outpath = []
+		for name in names:
+			for path in paths:
+				if re.search(r"/"+name+r"/",path):outpath.append(path)
+		return outpath
+		
+	paths1 = getmatch(names1,mypath)
+	paths2 = getmatch(names2,mypath)
+	return paths1,paths2
+
 if __name__ == '__main__':
 
 	#myconf = Configuration(open("../conf2.txt"))
