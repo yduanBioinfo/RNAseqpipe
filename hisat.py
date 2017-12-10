@@ -11,7 +11,7 @@ align : align using hisat2 build
 balign : align using hisat2 build and if index is not exist, build it.
 '''
 
-CLIP_CONVERTER="/home/yduan/script/shell/seq/conv_clipping.sh"
+CLIP_CONVERTER="./conv_clipping.sh"
 
 def check_index(index):
 
@@ -27,7 +27,7 @@ def build_index(fasta,index):
 	sys.stderr.write(file.read())
 	error_handle(file.close())#return exit status
 	
-def pip_hisat(myconf,fq1,fq2,subpath,ali_path,ali_name,silence=False):
+def pip_hisat(myconf,fq1,fq2,subpath,ali_path,ali_name,conv_clip=True,silence=False):
 	#myconf : Configuration obj
 	#ali_path : alignment out path
 	#outfile=/ali_path/subpath/ali_name
@@ -54,10 +54,12 @@ def pip_hisat(myconf,fq1,fq2,subpath,ali_path,ali_name,silence=False):
 	hisat2 = Prog_Rsp(myconf,"hisat2",order1,order2,silence)
 	hisat2.run()
 	#clipping convert
-	n_conv = hst_out.rstrip(".sam")+"_conv.sam"
-	os.system(CLIP_CONVERTER+" %s %s"%(hst_out,n_conv))
-	os.system("rm %s"%hst_out)#remove samfile1
-	hst_out = n_conv
+	#convert soft-clipping that stringtie needed to hard-clipping which is supported by cufflinks.
+	if conv_clip:
+		n_conv = hst_out.rstrip(".sam")+"_conv.sam"
+		os.system(CLIP_CONVERTER+" %s %s"%(hst_out,n_conv))
+		os.system("rm %s"%hst_out)#remove samfile1
+		hst_out = n_conv
 	
 	#sort
 	bamname = "sort.bam"
