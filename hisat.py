@@ -11,7 +11,7 @@ align : align using hisat2 build
 balign : align using hisat2 build and if index is not exist, build it.
 '''
 
-CLIP_CONVERTER="./conv_clipping.sh"
+CLIP_CONVERTER=os.path.join(os.path.dirname(__file__),"conv_clipping.sh")
 
 def check_index(index):
 
