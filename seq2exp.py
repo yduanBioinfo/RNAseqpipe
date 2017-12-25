@@ -8,6 +8,16 @@ from progsuit import Configuration, Group_data, getAbsPath, matchpath
 from RNAseqpip import log
 
 def seq2exp(myconf,myfq1,myfq2,fqnames,ali_path,ali_name,mygroup_data,run_cdiff=True):
+
+    pipe = myconf["all"].get("pipe")
+    if pipe == "hch":
+        return hisat_cufflinks_htseq(myconf,myfq1,myfq2,fqnames,ali_path,ali_name,mygroup_data,run_cdiff)
+    if pipe == "hsh":
+        pass
+    if pipe == "hh":
+        return hisat_htseq(myconf,myfq1,myfq2,fqnames,ali_path,ali_name,mygroup_data,run_cdiff)
+
+def hisat_cufflinks_htseq(myconf,myfq1,myfq2,fqnames,ali_path,ali_name,mygroup_data,run_cdiff=True):
     #from fastq to assembly gff
     #run_cdiff: if cuffdiff step should be performed
 
@@ -36,8 +46,8 @@ def seq2exp(myconf,myfq1,myfq2,fqnames,ali_path,ali_name,mygroup_data,run_cdiff=
     except:
         print(treat_group.values(),file=sys.stderr)
         run_cdiff = False
-        sys.stderr.write("Warning:only two group data can run cuffdiff!\n")
-        sys.stderr.write("cuffdiff step skipped\n")
+        log.error("Warning:only two group data can run cuffdiff!")
+        log.error("cuffdiff step skipped")
     
     if run_cdiff:
         quants1,quants2 = matchpath(gpnames1,gpnames2,quants)
@@ -48,6 +58,30 @@ def seq2exp(myconf,myfq1,myfq2,fqnames,ali_path,ali_name,mygroup_data,run_cdiff=
     htcount = htseq.htseqpip(myconf,sort_ress,ali_path,merged,plotqa=False)
     #return expressionf    
     return gene_fpkm, htcount, quants, merged
+
+def hisat_stringtie_htseq():
+    pass
+
+def hisat_htseq(myconf,myfq1,myfq2,fqnames,ali_path,ali_name,mygroup_data,run_cdiff=True):
+    #from fastq to assembly gff
+    #Don't finding novel gene.
+    #Only get expression.
+
+    ali_ress,sort_ress = hisat.pip_hisats(myconf,myfq1,myfq2,fqnames,ali_path,ali_name)
+    #Target gff
+    merged = myconf["all"].get("gff")
+
+    htcount = htseq.htseqpip(myconf,sort_ress,ali_path,merged,plotqa=False)
+    return htcount, merged
+
+def hisat_cufflinks_verse():
+    pass
+
+def hisat_stringtie_verse():
+    pass
+
+def hisat_verse():
+    pass
     
 def main(argv):
     

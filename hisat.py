@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 import sys, os, copy
-from progsuit import Configuration, Prog_Rsp
+from progsuit import Configuration, Prog_Rsp, log
 from collections import OrderedDict as Ordic
 
 '''
@@ -24,7 +24,8 @@ def check_index(index):
 def build_index(fasta,index):
 
     file = os.popen("hisat2-build %s %s"%(fasta,index))
-    sys.stderr.write(file.read())
+    #sys.stderr.write(file.read())
+    log.debug(file.read())
     error_handle(file.close())#return exit status
     
 def pip_hisat(myconf,fq1,fq2,subpath,ali_path,ali_name,conv_clip=True,silence=False):
@@ -111,7 +112,8 @@ def getOrder(order,myPconf):
 def error_handle(code,name="unknown"):
 
     if code:
-        sys.stderr.write("Error\n")
+        #sys.stderr.write("Error\n")
+        log.error("Error in hisat")
         sys.exit(99)
         
 if __name__ == '__main__':
