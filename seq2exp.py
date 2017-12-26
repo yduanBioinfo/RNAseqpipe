@@ -2,7 +2,7 @@
 
 from __future__ import print_function
 import sys
-import hisat, cufflinks, htseq
+import hisat, cufflinks, htseq, verse
 
 from progsuit import Configuration, Group_data, getAbsPath, matchpath
 from RNAseqpip import log
@@ -15,7 +15,9 @@ def seq2exp(myconf,myfq1,myfq2,fqnames,ali_path,ali_name,mygroup_data,run_cdiff=
     if pipe == "hsh":
         pass
     if pipe == "hh":
-        return hisat_htseq(myconf,myfq1,myfq2,fqnames,ali_path,ali_name,mygroup_data,run_cdiff)
+        return hisat_htseq(myconf,myfq1,myfq2,fqnames,ali_path,ali_name,mygroup_data)
+    if pipe == "hv":
+        return hisat_verse(myconf,myfq1,myfq2,fqnames,ali_path,ali_name,mygroup_data)
 
 def hisat_cufflinks_htseq(myconf,myfq1,myfq2,fqnames,ali_path,ali_name,mygroup_data,run_cdiff=True):
     #from fastq to assembly gff
@@ -62,7 +64,7 @@ def hisat_cufflinks_htseq(myconf,myfq1,myfq2,fqnames,ali_path,ali_name,mygroup_d
 def hisat_stringtie_htseq():
     pass
 
-def hisat_htseq(myconf,myfq1,myfq2,fqnames,ali_path,ali_name,mygroup_data,run_cdiff=True):
+def hisat_htseq(myconf,myfq1,myfq2,fqnames,ali_path,ali_name,mygroup_data):
     #from fastq to assembly gff
     #Don't finding novel gene.
     #Only get expression.
@@ -80,8 +82,17 @@ def hisat_cufflinks_verse():
 def hisat_stringtie_verse():
     pass
 
-def hisat_verse():
-    pass
+def hisat_verse(myconf,myfq1,myfq2,fqnames,ali_path,ali_name,mygroup_data):
+    #from fastq to assembly gff
+    #Don't finding novel gene.
+    #Only get expression.
+
+    ali_ress,sort_ress = hisat.pip_hisats(myconf,myfq1,myfq2,fqnames,ali_path,ali_name)
+    #Target gff
+    merged = myconf["all"].get("gff")
+
+    vscount = verse.versepip(myconf,sort_ress,ali_path,merged)
+    return vscount, merged
     
 def main(argv):
     
@@ -112,7 +123,7 @@ def main(argv):
         log.error("You can only choose one option between verbose and quite!")
         sys.exit(1)
     #waning or higher level
-    log.setLevel(30)
+    log.setLevel(20)
     #output all
     if args.verbose:
         log.setLevel(1)

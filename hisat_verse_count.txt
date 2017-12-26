@@ -2,10 +2,11 @@
 #general parameters
 genome=/home/lab/genomes/Fish/grass_carp/new_genome/del_empty_line.alter.C_idella_female_scaffolds.fasta
 gff=/home/lab/genomes/Fish/grass_carp/new_genome/dlmrna.gc.final.gff
-kodb=/home/yduan/data/growth/clean/lnc_RNA/analysis/merged_asm/koannot/merged.koannot#kegg annot db
-godb=/home/yduan/data/growth/clean/lnc_RNA/analysis/merged_asm/goannot/tmerged_all.annot
+kodb=/home/yduan/data/growth/clean/polya/analysis/merged_asm/koannot/merged.koannot#kegg annot db
+godb=/home/yduan/data/growth/clean/polya/analysis/merged_asm/goannot/merged_all.annot
 kgmap=/home/yduan/data/funcdb/kodb/pathway.ko#keggmap
 p=8
+pipe=hv
 </all>
 
 <hisat2-build>
@@ -16,15 +17,12 @@ index=test
 -x=/home/lab/genomes/Fish/grass_carp/new_genome/daC_ide
 --pen-intronlen=G,-8,3
 #--pen-noncansplice=1000000#must set when using cufflinks
---fr=
 -p=16
---dta-cufflinks=
 </hisat2>
 
 <cufflinks>
 -p=4
 --no-update-check=
---library-type=fr-firststrand
 #G=
 #g=
 </cufflinks>
@@ -34,6 +32,7 @@ index=test
 </cuffmerge>
 
 <cuffquant>
+--no-update-check=
 </cuffquant>
 
 <cuffnorm>
@@ -69,21 +68,21 @@ db2=/home/yduan/data/refseq/H_sapiens/human.protein.faa
 -f=bam
 #-f=sam
 -r=name
--t=exon#cuffmerge format
--i=gene_id#cuffmerge format
--s=reverse#strand specific library(Illumina)
+-t=exon#gc.final format
+-i=ID#gc.final format
+-s=yes#Strand specific library
 </htseq_count>
-
-<htseq_qa>
--t=bam
-#-t=sam
-</htseq_qa>
 
 <verse>
 -t=exon#gc.final format
 -g=ID#gc.final format
 -s=2#Strand specific library
 </verse>
+
+<htseq_qa>
+-t=bam
+#-t=sam
+</htseq_qa>
 
 <count_merge>
 </count_merge>

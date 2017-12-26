@@ -339,7 +339,8 @@ class Prog_Rsp(Pconf,Prog):
         #for outside use
     
         order = self.gen_order(self.progname,self.data)
-        sys.stderr.write(order+"\n")
+        #sys.stderr.write(order+"\n")
+        log.info(order)
         return self.run_order(order,self.progname,self.silence)
         
     def get_prog_path(self,prog,myConf):
@@ -411,6 +412,17 @@ def matchpath(names1,names2,mypath):#hidden bugs
     paths1 = getmatch(names1,mypath)
     paths2 = getmatch(names2,mypath)
     return paths1,paths2
+
+def addends(value,ends="/"):
+
+    if value.endswith(ends):
+        return value
+    else:
+        return value+"/"
+
+def get_filename(path):
+
+    return os.path.splitext(os.path.split(path)[1])[0]
 
 if __name__ == '__main__':
 
