@@ -9,6 +9,10 @@ p=8
 pipe=hv
 </all>
 
+<gff>
+id_attr=ID
+</gff>
+
 <hisat2-build>
 index=test 
 </hisat2-build>
@@ -70,7 +74,7 @@ db2=/home/yduan/data/refseq/H_sapiens/human.protein.faa
 -r=name
 -t=exon#gc.final format
 -i=ID#gc.final format
--s=yes#Strand specific library
+-s=reverse#Strand specific library
 </htseq_count>
 
 <verse>

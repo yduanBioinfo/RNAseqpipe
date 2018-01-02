@@ -31,7 +31,9 @@ running cptDE.\n")
     if not mergedfile:
         sys.stderr.write("gff file is needed for gene length\n")
         raise TypeError
-    length = len_for_Rsp(mergedfile)
+    if myconf.get("gff") and myconf.get("gff").get("id_attr"):
+        myt_attr = myconf.get("gff").get("id_attr")
+    length = len_for_Rsp(mergedfile,t_attr=myt_attr)
     mergedfile.close()
     #mergedfile should be opened file
     mycounts = NOISeq.noi_counts(myconf,expressionf,mygroup_data.get_g_groups(),\
