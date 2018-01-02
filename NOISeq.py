@@ -158,9 +158,11 @@ outname = "NOIbio",factor="",q=0.8,sample_info=None,qcreport=False,qcfile='NULL'
     sys.stdout.flush()
     r.mylength = "NULL"
     if length:
-        r.length = np.array(length,[("gene",'|S24'),("length",'i4')])
+        r.length = np.array(length,[("gene",'|S64'),("length",'i4')])
+        #r.length = np.array(length,[("gene",'U'),("length",'i4')])
         writerr(r('mylength<-as.integer(as.vector(length[,2]))\n\
         names(mylength)<-length[,1]'),vb)
+        writerr(r('head(mylength)'),vb)
         writerr(r('mylength<-subset(mylength,names(mylength) %in% rownames(mytable))'),vb)
         writerr(r('head(mylength)'),vb)
     #3
