@@ -112,6 +112,7 @@ def main(argv):
         parser.print_usage()
         sys.exit(1)
     
+    myconf = Configuration(args.conf)
     DEfile = args.DEfile
     template_gff = args.template_gff
     if not DEfile or not template_gff:
