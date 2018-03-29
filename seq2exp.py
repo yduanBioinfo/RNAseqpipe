@@ -11,12 +11,19 @@ def seq2exp(myconf,myfq1,myfq2,fqnames,ali_path,ali_name,mygroup_data,run_cdiff=
 
     pipe = myconf["all"].get("pipe")
     if pipe == "hch":
+        # Hisat+ Cufflinks+ HTseq
         return hisat_cufflinks_htseq(myconf,myfq1,myfq2,fqnames,ali_path,ali_name,mygroup_data,run_cdiff)
     if pipe == "hsh":
+        # Hisat + Stringtie + HTseq
+        pass
+    if pipe == "hsv":
+        # Hisat + Stringtie + Verse
         pass
     if pipe == "hh":
+        # Hisat + Htseq
         return hisat_htseq(myconf,myfq1,myfq2,fqnames,ali_path,ali_name,mygroup_data)
     if pipe == "hv":
+        # Hisat + Verse
         return hisat_verse(myconf,myfq1,myfq2,fqnames,ali_path,ali_name,mygroup_data)
 
 def hisat_cufflinks_htseq(myconf,myfq1,myfq2,fqnames,ali_path,ali_name,mygroup_data,run_cdiff=True):
