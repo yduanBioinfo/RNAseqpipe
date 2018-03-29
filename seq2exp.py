@@ -2,7 +2,7 @@
 
 from __future__ import print_function
 import sys
-import hisat, cufflinks, htseq, verse
+import hisat, cufflinks, htseq, verse, stringtie
 
 from progsuit import Configuration, Group_data, getAbsPath, matchpath
 from RNAseqpip import log
@@ -15,7 +15,8 @@ def seq2exp(myconf,myfq1,myfq2,fqnames,ali_path,ali_name,mygroup_data,run_cdiff=
         return hisat_cufflinks_htseq(myconf,myfq1,myfq2,fqnames,ali_path,ali_name,mygroup_data,run_cdiff)
     if pipe == "hsh":
         # Hisat + Stringtie + HTseq
-        pass
+        return hisat_stringtie_htseq(myconf,myfq1,myfq2,fqnames,ali_path,ali_name,mygroup_data)
+
     if pipe == "hsv":
         # Hisat + Stringtie + Verse
         pass
@@ -68,8 +69,13 @@ def hisat_cufflinks_htseq(myconf,myfq1,myfq2,fqnames,ali_path,ali_name,mygroup_d
     #return expressionf    
     return gene_fpkm, htcount, quants, merged
 
-def hisat_stringtie_htseq():
-    pass
+def hisat_stringtie_htseq(myconf,myfq1,myfq2,fqnames,ali_path,ali_name,mygroup_data):
+    ali_ress,sort_ress = hisat.pip_hisats(myconf,myfq1,myfq2,fqnames,ali_path,ali_name)
+    stringtie_ress = stringtie.stringties(myconf,sort_ress)
+    # stringtie results, gtf files
+    merged = stringtie.merge(myconf,stringtie_ress,ali_path+"/merged_asm/merged.gtf")
+    htcount = htseq.htseqpip(myconf,sort_ress,ali_path,merged,plotqa=False)
+    return htcount, merged
 
 def hisat_htseq(myconf,myfq1,myfq2,fqnames,ali_path,ali_name,mygroup_data):
     #from fastq to assembly gff

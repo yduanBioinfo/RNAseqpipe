@@ -27,6 +27,10 @@ index=test
 #g=
 </cufflinks>
 
+<stringtie>
+-p=4
+</stringtie>
+
 <cuffmerge>
 -p=8
 </cuffmerge>
