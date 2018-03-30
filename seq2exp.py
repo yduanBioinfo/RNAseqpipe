@@ -13,13 +13,18 @@ def seq2exp(myconf,myfq1,myfq2,fqnames,ali_path,ali_name,mygroup_data,run_cdiff=
     if pipe == "hch":
         # Hisat+ Cufflinks+ HTseq
         return hisat_cufflinks_htseq(myconf,myfq1,myfq2,fqnames,ali_path,ali_name,mygroup_data,run_cdiff)
+
+    if pipe == "hcv":
+        return hisat_cufflinks_verse(myconf,myfq1,myfq2,fqnames,ali_path,ali_name,mygroup_data,run_cdiff)
+
     if pipe == "hsh":
         # Hisat + Stringtie + HTseq
         return hisat_stringtie_htseq(myconf,myfq1,myfq2,fqnames,ali_path,ali_name,mygroup_data)
 
     if pipe == "hsv":
         # Hisat + Stringtie + Verse
-        pass
+        return hisat_stringtie_verse(myconf,myfq1,myfq2,fqnames,ali_path,ali_name,mygroup_data)
+
     if pipe == "hh":
         # Hisat + Htseq
         return hisat_htseq(myconf,myfq1,myfq2,fqnames,ali_path,ali_name,mygroup_data)
@@ -27,9 +32,10 @@ def seq2exp(myconf,myfq1,myfq2,fqnames,ali_path,ali_name,mygroup_data,run_cdiff=
         # Hisat + Verse
         return hisat_verse(myconf,myfq1,myfq2,fqnames,ali_path,ali_name,mygroup_data)
 
-def hisat_cufflinks_htseq(myconf,myfq1,myfq2,fqnames,ali_path,ali_name,mygroup_data,run_cdiff=True):
-    #from fastq to assembly gff
-    #run_cdiff: if cuffdiff step should be performed
+def sub_hisat_cufflinks(myconf,myfq1,myfq2,fqnames,ali_path,ali_name,mygroup_data,run_cdiff=True):
+    # sub_* sub processing should be called repeatly.
+    # from fastq to assembly gff
+    # run_cdiff: if cuffdiff step should be performed
 
     ali_ress,sort_ress = hisat.pip_hisats(myconf,myfq1,myfq2,fqnames,ali_path,ali_name)
     #alignment results,samtools sorted results
@@ -65,6 +71,15 @@ def hisat_cufflinks_htseq(myconf,myfq1,myfq2,fqnames,ali_path,ali_name,mygroup_d
         cufflinks.cuffdiff(myconf,merged,quants1,quants2,cu_diff)
     
     #cuffdiff end
+    #return expressionf    
+    return gene_fpkm, sort_ress, quants, merged
+
+def hisat_cufflinks_htseq(myconf,myfq1,myfq2,fqnames,ali_path,ali_name,mygroup_data,run_cdiff=True):
+    #from fastq to assembly gff
+    #run_cdiff: if cuffdiff step should be performed
+
+    gene_fpkm, sort_ress, quants, merged = sub_hisat_cufflinks(myconf,myfq1,myfq2,fqnames,ali_path,ali_name,mygroup_data,run_cdiff)
+    #cuffdiff end
     htcount = htseq.htseqpip(myconf,sort_ress,ali_path,merged,plotqa=False)
     #return expressionf    
     return gene_fpkm, htcount, quants, merged
@@ -89,11 +104,21 @@ def hisat_htseq(myconf,myfq1,myfq2,fqnames,ali_path,ali_name,mygroup_data):
     htcount = htseq.htseqpip(myconf,sort_ress,ali_path,merged,plotqa=False)
     return htcount, merged
 
-def hisat_cufflinks_verse():
-    pass
+def hisat_cufflinks_verse(myconf,myfq1,myfq2,fqnames,ali_path,ali_name,mygroup_data,run_cdiff):
+    ali_ress,sort_ress = hisat.pip_hisats(myconf,myfq1,myfq2,fqnames,ali_path,ali_name)
+    stringtie_ress = stringtie.stringties(myconf,sort_ress)
+    # stringtie results, gtf files
+    merged = stringtie.merge(myconf,stringtie_ress,ali_path+"/merged_asm/merged.gtf")
+    vscount = verse.versepip(myconf,sort_ress,ali_path,merged)
+    return vscount, merged
 
-def hisat_stringtie_verse():
-    pass
+def hisat_stringtie_verse(myconf,myfq1,myfq2,fqnames,ali_path,ali_name,mygroup_data):
+    ali_ress,sort_ress = hisat.pip_hisats(myconf,myfq1,myfq2,fqnames,ali_path,ali_name)
+    stringtie_ress = stringtie.stringties(myconf,sort_ress)
+    # stringtie results, gtf files
+    merged = stringtie.merge(myconf,stringtie_ress,ali_path+"/merged_asm/merged.gtf")
+    vscount = verse.versepip(myconf,sort_ress,ali_path,merged)
+    return vscount, merged
 
 def hisat_verse(myconf,myfq1,myfq2,fqnames,ali_path,ali_name,mygroup_data):
     #from fastq to assembly gff
