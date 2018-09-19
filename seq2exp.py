@@ -131,6 +131,11 @@ def hisat_verse(myconf,myfq1,myfq2,fqnames,ali_path,ali_name,mygroup_data):
 
     vscount = verse.versepip(myconf,sort_ress,ali_path,merged)
     return vscount, merged
+
+def count2exp(myconf,count,outdir=None):
+    if outdir == None:
+        # countdir --> outdir
+        pass
     
 def main(argv):
     

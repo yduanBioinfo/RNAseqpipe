@@ -151,10 +151,15 @@ class Group(object):
         self._data = Ordic()
         self._header = []
         self.parse_file(conf)
+        self.is_empty = False
         
     def parse_file(self,lst,sep="\t"):
         
         assert isinstance(lst,list)
+        # Has none group information in group_data file.
+        if lst == []:
+            self.is_empty = True
+            return
         self._header = lst[0].rstrip("\n").split(sep)[1:]
         for each in lst[1:]:
             tmp = each.rstrip("\n").split(sep)

@@ -3,6 +3,7 @@
 import sys, os, time, threading
 from collections import OrderedDict as Ordic
 from progsuit import Prog_Rsp, log, addends, get_filename
+from get_gene_length import len_for_Rsp
 
 mythreads = []#threading running
 threadLock = threading.Lock()
@@ -79,12 +80,24 @@ def verse(conf,bam,outpath,gff,silence=False):
     prog.run()
     return outfile+".exon.txt"
 
-def catcount(conf,files,outfile,silence=False):
-    #merge count file
+#merge count file
+# lfile: length file
+def catcount(conf,files,outfile,lfile=None,silence=False):
 
     progname = "count_merge"
     order1 = Ordic([(file,"") for file in files])
     order2 = Ordic([("-o",outfile),("-f","")])
+    if lfile:
+        order2["-l"]=lfile
+    prog = Prog_Rsp(conf,progname,order1,order2,silence)
+    return prog.run()
+
+def get_length(conf,outfile,gff,silence=False):
+    #merge count file
+
+    progname = "get_length"
+    order1 = Ordic([(gff,"")])
+    order2 = Ordic([("-o",outfile)])
     prog = Prog_Rsp(conf,progname,order1,order2,silence)
     return prog.run()
 
@@ -117,6 +130,9 @@ def versepip(conf,files,mpath,gff,outpath=None,p=8,silence=False):
     waittd(0)
 
     outfile = addends(mpath)+time.strftime("merged%y_%m_%d_%H.count",time.localtime())
-    catcount(conf,outfiles,outfile)
+    # Add length to outfile
+    lenfile = addends(mpath)+time.strftime("merged%y_%m_%d_%H.length",time.localtime())
+    get_length(conf,lenfile,gff)
+    catcount(conf,outfiles,outfile,lfile=lenfile)
 
     return outfile
