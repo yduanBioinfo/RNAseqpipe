@@ -303,9 +303,8 @@ class Prog(object):
     def run_order(self,order,name="unknown",silence=False):
     
         file=os.popen(order)
-        if not silence:
-            #print(file.read())
-            log.debug(file.read())
+        log.debug("run %s" % name)
+        log.debug(file.read())
         self.error_handle(file.close(),name)
         
     def error_handle(self,code,name="unknown"):

@@ -45,6 +45,7 @@ def stringties(conf,bamfs,outpath=None,silence=False,maxp=20):
 
 def merge(conf,gtfs,outfile,silence=False):
     
+    sys.stderr.write("here we run stringtie merge.\n")
     order1 = Ordic([("--merge",""),("-o",outfile)])
     order2 = Ordic()
     if conf["all"]["gff"]:

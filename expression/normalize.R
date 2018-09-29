@@ -1,6 +1,7 @@
 #!/usr/bin/env Rscript
 
 # Convert raw counts to normalization data.
+# Requires NOISeq, edgeR
 # Replace 0 with minius digit??(k = 1)
 # Length correct is enabled.
 # Usage: ./normalize count outprefix [read length = 150]
