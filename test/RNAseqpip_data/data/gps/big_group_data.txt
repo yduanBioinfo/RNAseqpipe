@@ -1,0 +1,15 @@
+<dataset1>
+filetype=fastq
+library=PE#SE
+TEST1	/biodb/users/yduan/data/growth/clean/lnc_RNA/data/data/2014-11-BB1.clean_read1.fq.gz	/biodb/users/yduan/data/growth/clean/lnc_RNA/data/data/2014-11-BB1.clean_read2.fq.gz
+</dataset1>
+
+<dataset2>
+filetype=fastq
+library=SE
+</dataset2>
+
+<GROUP>
+sample	bodysize
+TEST1	Big
+</GROUP>

@@ -1,0 +1,18 @@
+<dataset1>
+filetype=fastq
+library=PE#SE
+!datablock!
+</dataset1>
+
+<dataset2>
+filetype=fastq
+library=SE
+</dataset2>
+
+<GROUP>
+sample	bodysize
+TEST1	Big
+TEST2	Big
+TEST3	Small
+TEST4	Small
+</GROUP>

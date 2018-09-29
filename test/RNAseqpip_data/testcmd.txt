@@ -1,0 +1,3 @@
+../../RNAseqpip.py seq2exp -c hisat_verse_count.txt -g test_group_data.txt -o test_out
+../../RNAseqpip.py cptDE -c hisat_verse_count.txt -g test_group_data.txt -e test_out/merged18_01_03_16.count -o test_out/
+../../RNAseqpip.py func -c hisat_verse_count.txt -d test_out/rpkm_NOIbionull.txt -t dlmrna.gc.final.gff -o test_out

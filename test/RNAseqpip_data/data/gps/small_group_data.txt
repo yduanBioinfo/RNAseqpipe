@@ -1,0 +1,21 @@
+<dataset1>
+filetype=fastq
+library=PE#SE
+TEST1	/home/yduan/work_file/RNAseqpip/test/RNAseqpip_data/data/fqs/test1_1.fq	/home/yduan/work_file/RNAseqpip/test/RNAseqpip_data/data/fqs/test1_2.fq
+TEST2	/home/yduan/work_file/RNAseqpip/test/RNAseqpip_data/data/fqs/test2_1.fq	/home/yduan/work_file/RNAseqpip/test/RNAseqpip_data/data/fqs/test2_2.fq
+TEST3	/home/yduan/work_file/RNAseqpip/test/RNAseqpip_data/data/fqs/test3_1.fq	/home/yduan/work_file/RNAseqpip/test/RNAseqpip_data/data/fqs/test3_2.fq
+TEST4	/home/yduan/work_file/RNAseqpip/test/RNAseqpip_data/data/fqs/test3_1.fq	/home/yduan/work_file/RNAseqpip/test/RNAseqpip_data/data/fqs/test3_2.fq
+</dataset1>
+
+<dataset2>
+filetype=fastq
+library=SE
+</dataset2>
+
+<GROUP>
+sample	bodysize
+TEST1	Big
+TEST2	Big
+TEST3	Small
+TEST4	Small
+</GROUP>
