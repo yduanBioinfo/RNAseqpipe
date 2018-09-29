@@ -8,6 +8,7 @@ import sys, re, os, copy
 from threading import Thread
 import subprocess
 import logging
+import argparse
 
 import hisat, cufflinks, NOISeq, htseq
 import funcAnnot.b2gprog.GOannot as GOannot
@@ -32,9 +33,18 @@ def run_subp(argv,program):
     argv[0] = FILEDIR+"/"+program
     subprocess.call(argv)
 
+def add_arguments(parser):
+    parser.add_argument('-c','--conf',help='configuration file',nargs='?',\
+    type=argparse.FileType('r'),default='configuration.txt')
+    parser.add_argument('-g','--group_data',help='group_data file. conflict with -1 -2'\
+    ,nargs='?',type=argparse.FileType('r'))
+    parser.add_argument('-v','--verbose',help='Out put all running information. Typically used in debug.',default=False,action='store_true')
+    parser.add_argument('-q','--quite',help='Running quitely.',default=False,action='store_true')
+    parser.add_argument('-o','--outpath',help='outpath',nargs='?')
+
 if __name__ == '__main__':
 
-    import argparse, sys
+    import sys
     
     parser = argparse.ArgumentParser(description='RNA-seq analyse pip')
     parser.add_argument('program',help='all for whole pip/ali for alignment/ass for assembly/\

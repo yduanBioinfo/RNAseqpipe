@@ -5,7 +5,7 @@ import sys
 import hisat, cufflinks, htseq, verse, stringtie
 
 from progsuit import Configuration, Group_data, getAbsPath, matchpath
-from RNAseqpip import log
+from RNAseqpip import log, add_arguments
 
 def seq2exp(myconf,myfq1,myfq2,fqnames,ali_path,ali_name,mygroup_data,run_cdiff=True):
 
@@ -142,15 +142,9 @@ def main(argv):
     import argparse, sys
     
     parser = argparse.ArgumentParser(description='RNA-seq seq2exp program')
-    parser.add_argument('-c','--conf',help='configuration file',nargs='?',\
-    type=argparse.FileType('r'),default='configuration.txt')
     parser.add_argument('-1','--fq1',help='fq_1',nargs='*')
     parser.add_argument('-2','--fq2',help='fq_2',nargs='*')
-    parser.add_argument('-g','--group_data',help='group_data file. conflict with -1 -2'\
-    ,nargs='?',type=argparse.FileType('r'))
-    parser.add_argument('-v','--verbose',help='Out put all running information. Typically used in debug.',default=False,action='store_true')
-    parser.add_argument('-q','--quite',help='Running quitely.',default=False,action='store_true')
-    parser.add_argument('-o','--outpath',help='outpath',nargs='?')
+    add_arguments(parser)
     args = parser.parse_args(argv[1:])
 
     if len(argv) == 1:

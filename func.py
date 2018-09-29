@@ -10,6 +10,7 @@ from funcAnnot.kegg.annot2go_stat import annot2go_stat
 from funcAnnot.annot_from_db import annot
 from funcAnnot.kegg.koenrich.keggenrich import enrich as koenrich
 from progsuit import Configuration, Group_data, getAbsPath, matchpath
+from RNAseqpip import log, add_arguments
 from get_gene_length import len_for_Rsp
 from get_geneids import get_geneids
 
@@ -99,13 +100,11 @@ def main(argv):
     import argparse, sys
     
     parser = argparse.ArgumentParser(description='RNASeqpip function annot program')
-    parser.add_argument('-c','--conf',help='configuration file',nargs='?',\
-    type=argparse.FileType('r'),default='configuration.txt')
     parser.add_argument('-d','--DEfile',help='DEfile(NOISeq out). when chosing func,\
     this option is required.',nargs='?')
     parser.add_argument('-t','--template_gff',help='when chosing cptDE or func,\
     this option is used.',nargs='?')
-    parser.add_argument('-o','--outpath',help='outpath',nargs='?')
+    add_arguments(parser)
     args = parser.parse_args(argv[1:])
 
     if len(argv) == 1:

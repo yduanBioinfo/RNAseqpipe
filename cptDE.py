@@ -5,6 +5,7 @@ import sys, os
 
 import NOISeq
 from progsuit import Configuration, Group_data, getAbsPath, matchpath
+from RNAseqpip import add_arguments
 from get_gene_length import len_for_Rsp
 
 def cptDE(myconf,ali_path,mygroup_data,expressionf,samples_table,template_gff):
@@ -51,17 +52,13 @@ def main(argv):
     import argparse, sys
     
     parser = argparse.ArgumentParser(description='cptDE program')
-    parser.add_argument('-c','--conf',help='configuration file',nargs='?',\
-    type=argparse.FileType('r'),default='configuration.txt')
-    parser.add_argument('-g','--group_data',help='group_data file. conflict with -1 -2'\
-    ,nargs='?',type=argparse.FileType('r'))
     parser.add_argument('-s','--samples_table',help='cuffnorm samples.table file'\
     ,nargs='?')
     parser.add_argument('-e','--expressionf',help='when chosing cptDE, this option is required.'\
     ,nargs='?')
     parser.add_argument('-t','--template_gff',help='when chosing cptDE or func,\
     this option is used.',nargs='?')
-    parser.add_argument('-o','--outpath',help='outpath',nargs='?')
+    add_arguments(parser)
     args = parser.parse_args(argv[1:])
 
     if len(argv) == 1:
