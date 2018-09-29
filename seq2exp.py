@@ -5,7 +5,7 @@ import sys
 import hisat, cufflinks, htseq, verse, stringtie
 
 from progsuit import Configuration, Group_data, getAbsPath, matchpath
-from RNAseqpip import log, add_arguments
+from RNAseqpip import log, add_arguments, BASE_CONF
 
 def seq2exp(myconf,myfq1,myfq2,fqnames,ali_path,ali_name,mygroup_data,run_cdiff=True):
 
@@ -137,8 +137,7 @@ def count2exp(myconf,count,outdir=None):
         # countdir --> outdir
         pass
     
-def main(argv):
-    
+def main(argv): 
     import argparse, sys
     
     parser = argparse.ArgumentParser(description='RNA-seq seq2exp program')
@@ -151,7 +150,7 @@ def main(argv):
         parser.print_usage()
         sys.exit(1)
 
-    myconf = Configuration(args.conf)
+    myconf = Configuration(args.conf, base_conf=BASE_CONF)
     ali_path = getAbsPath(args.outpath)#home path for alignment results
     ali_name = 'mapped.sam'#alignment result name
 

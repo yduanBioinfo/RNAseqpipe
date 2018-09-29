@@ -26,6 +26,7 @@ FILEDIR=os.path.dirname(FILEPATH)
 CPTDE="cptDE.py"
 SEQ2EXP="seq2exp.py"
 FUNC="func.py"
+BASE_CONF=FILEDIR+"/confs/base.conf"
 
 def run_subp(argv,program):
     #program shoule be in {CPTDE,SEQ2EXP,FUNC}
@@ -35,9 +36,8 @@ def run_subp(argv,program):
 
 def add_arguments(parser):
     parser.add_argument('-c','--conf',help='configuration file',nargs='?',\
-    type=argparse.FileType('r'),default='configuration.txt')
-    parser.add_argument('-g','--group_data',help='group_data file. conflict with -1 -2'\
-    ,nargs='?',type=argparse.FileType('r'))
+    default='configuration.txt')
+    parser.add_argument('-g','--group_data',help='group_data file. conflict with -1 -2',nargs='?')
     parser.add_argument('-v','--verbose',help='Out put all running information. Typically used in debug.',default=False,action='store_true')
     parser.add_argument('-q','--quite',help='Running quitely.',default=False,action='store_true')
     parser.add_argument('-o','--outpath',help='outpath',nargs='?')

@@ -14,41 +14,32 @@ class Pconf(object):
     '''
 
     def __init__(self,conf,name='all'):
-
         self.name = name
         self._pr_pattern = re.compile(r"([^=#]+)=([^=#]+)")#parameter pattern
         self.data = self.parse_file(conf)#record name and path
         
     def __getitem__(self,key):
-    
         return self.data.get(key)
         
     def __contains__(self,value):
-    
         return self.data.has_key(value)
         
     def __setitem__(self,key,value):
-    
         self.data[key] = value
 
     def get(self,key):
-    
         return self.__getitem__(key)
         
     def items(self):
-    
         return self.data.items()
         
     def values(self):
-    
         return self.data.values()
     
     def keys(self):
-    
         return self.data.keys()
         
     def parse_file(self,conf):
-
         mydic = Ordic()#save file name and path
         for eachline in conf:
             tmp = self._pr_pattern.match(eachline)
@@ -58,6 +49,10 @@ class Pconf(object):
                 log.warning("Warning:repeat names : %s"%tmp.group(1))
             mydic[tmp.group(1).strip()] = tmp.group(2).strip()
         return mydic
+
+    def update(self,conf):
+        mydic = self.parse_file(conf)
+        self.data.update(mydic)
         
 class Configuration(Pconf):
 
@@ -66,37 +61,45 @@ class Configuration(Pconf):
     data = {program1:Pconf1,program2:Pconf2}
     '''
     
-    def __init__(self,conf):
+    def __init__(self,conf,base_conf=None):
         
         self._st_pattern = re.compile(r"\<(\S+)\>")
         self._ed_pattern = re.compile(r"\<[/](\S+)\>")
-        self.data = {} 
-        self.parse_file(conf)
+        self.data = {}
+        # load base configuration first.
+        if base_conf:
+            self.parse_file(open(base_conf))
+        self.confs = conf.split(",")
+        for _conf in self.confs:
+            self.parse_file(open(_conf))
         
     def parse_file(self,conf):
-    
         paras = [] #parameters
         name = ''
         
         for eachline in conf:
-            #print(eachline)
             st = self._st_pattern.search(eachline)
             ed = self._ed_pattern.search(eachline)
+            # End of a program,
+            # and save paras into a Pconf object.
             if name and ed:
-                #end of a program
                 if name != ed.group(1):
-                    sys.stderr.write("\
-                    configuration format error!\n")
+                    log.critical("confituration format error!")
                     sys.exit(1)
+                # Pconf exist, update it
+                if name in self.data:
+                    self.data[name].update(paras)
+                # Pconf doesn't exist, creat it.
                 self.data[name] = Pconf(paras)
                 paras = []
                 name = ''
-            elif name and name not in self.data:
-                #parameters of program and unique
-                paras.append(eachline)
+            # Start of a program
             elif not name and st:
-                #start of a program
                 name = st.group(1)
+            # Body of program parameters
+            elif name:
+                paras.append(eachline)
+            # Whether this else exist???
             else:
                 pass
 
