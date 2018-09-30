@@ -136,6 +136,13 @@ def count2exp(myconf,count,outdir=None):
     if outdir == None:
         # countdir --> outdir
         pass
+
+def print_conf(conf):
+    for k,v in conf.items():
+        print("top level")
+        print(k)
+        for k1,v1 in v.items():
+            print(v1)
     
 def main(argv): 
     import argparse, sys
@@ -151,6 +158,7 @@ def main(argv):
         sys.exit(1)
 
     myconf = Configuration(args.conf, base_conf=BASE_CONF)
+    print_conf(myconf)
     ali_path = getAbsPath(args.outpath)#home path for alignment results
     ali_name = 'mapped.sam'#alignment result name
 
@@ -187,7 +195,7 @@ def main(argv):
         sys.exit(1)
        # raise StandardError("-2 should be as long as -1\n")
 
-    seq2exp(myconf,myfq1,myfq2,fqnames,ali_path,ali_name,mygroup_data,run_cdiff=False)
+    #seq2exp(myconf,myfq1,myfq2,fqnames,ali_path,ali_name,mygroup_data,run_cdiff=False)
         
 if __name__ == '__main__':
 

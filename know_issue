@@ -1,1 +1,2 @@
 1. Subprograms still running when main script has been killed.
+2. When test failed, it still output done.

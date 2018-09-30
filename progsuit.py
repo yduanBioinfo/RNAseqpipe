@@ -66,10 +66,20 @@ class Configuration(Pconf):
         self._st_pattern = re.compile(r"\<(\S+)\>")
         self._ed_pattern = re.compile(r"\<[/](\S+)\>")
         self.data = {}
+
+        # conf == None
+        # Only base_conf is avaliable.
+        if conf:
+            self.confs = conf.split(",")
+        else:
+            self.confs = []
         # load base configuration first.
+        # For configuration, base_conf must exist,
+        # But for gruop data, it's not true.
         if base_conf:
-            self.parse_file(open(base_conf))
-        self.confs = conf.split(",")
+            self.confs.insert(0,base_conf)
+        assert self.confs != []
+
         for _conf in self.confs:
             self.parse_file(open(_conf))
         
