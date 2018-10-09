@@ -158,7 +158,6 @@ def main(argv):
         sys.exit(1)
 
     myconf = Configuration(args.conf, base_conf=BASE_CONF)
-    print_conf(myconf)
     ali_path = getAbsPath(args.outpath)#home path for alignment results
     ali_name = 'mapped.sam'#alignment result name
 
