@@ -194,7 +194,7 @@ def main(argv):
         sys.exit(1)
        # raise StandardError("-2 should be as long as -1\n")
 
-    #seq2exp(myconf,myfq1,myfq2,fqnames,ali_path,ali_name,mygroup_data,run_cdiff=False)
+    seq2exp(myconf,myfq1,myfq2,fqnames,ali_path,ali_name,mygroup_data,run_cdiff=False)
         
 if __name__ == '__main__':
 
