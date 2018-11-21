@@ -17,7 +17,7 @@ mkdir testout
 # quite mode
 #../../RNAseqpip.py seq2exp -c ${cf_root}/hisat_stringtie_verse.conf -g ${sg} -o testout/hvc_count_out -q && echo "hsv seq2exp done!" || echo "hsv seq2exp faild!"
 # verbose mode
-../../RNAseqpip.py seq2exp -c ${cf_root}/hisat_stringtie_verse.conf -g ${sg} -o testout/hvc_count_out --verbose && echo "hsv seq2exp done!" || echo "hsv seq2exp faild!"
+../../RNAseqpip.py seq2exp -c ${cf_root}/dUTP.conf,${cf_root}/hisat_stringtie_verse.conf -g ${sg} -o testout/hvc_count_out --verbose && echo "hsv seq2exp done!" || echo "hsv seq2exp faild!"
 echo "../../RNAseqpip.py seq2exp -c ${cf_root}/hisat_stringtie_verse.conf -g ${sg} -o testout/hvc_count_out --verbose" 
 
 # hisat cufflinks verse

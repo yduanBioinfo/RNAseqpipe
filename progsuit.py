@@ -53,7 +53,7 @@ class Pconf(object):
     def update(self,conf):
         mydic = self.parse_file(conf)
         self.data.update(mydic)
-        
+
 class Configuration(Pconf):
 
     '''
@@ -81,6 +81,7 @@ class Configuration(Pconf):
         assert self.confs != []
 
         for _conf in self.confs:
+            print(_conf)
             self.parse_file(open(_conf))
         
     def parse_file(self,conf):
@@ -100,7 +101,8 @@ class Configuration(Pconf):
                 if name in self.data:
                     self.data[name].update(paras)
                 # Pconf doesn't exist, creat it.
-                self.data[name] = Pconf(paras)
+                else:
+                    self.data[name] = Pconf(paras)
                 paras = []
                 name = ''
             # Start of a program
