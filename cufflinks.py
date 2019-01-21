@@ -47,14 +47,13 @@ def cufflinks(conf,bamfs,outpath=None,silence=False,maxp=20):
 def cuffmerge(conf,assembly,outpath,silence=False):
     #assembly: assembly.txt
     
+    progname = "cuffmerge"
     order1 = Ordic([("-o",outpath)])
     order2 = Ordic()
-    if conf["all"]["gff"]:
-        order2["-g"] = conf["all"]["gff"]
     if conf["all"]["genome"]:
         order2["-s"] = conf["all"]["genome"]
     order2[assembly] = ""
-    cuffmerge = Prog_Rsp(conf,"cuffmerge",order1,order2,silence)
+    cuffmerge = Prog_Rsp(conf,progname,order1,order2,silence)
     cuffmerge.run()
     del cuffmerge
     return outpath+"/merged.gtf"

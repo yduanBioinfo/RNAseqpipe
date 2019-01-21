@@ -43,15 +43,15 @@ def stringties(conf,bamfs,outpath=None,silence=False,maxp=20):
     pool.map(stringtie_star,itertools.izip(itertools.repeat(myconf),bamfs,outfiles,itertools.repeat(silence)))
     return outfiles
 
-def merge(conf,gtfs,outfile,silence=False):
-    
-    sys.stderr.write("here we run stringtie merge.\n")
+def merge(conf,gtfs,outfile,silence=False):    
+    progname = "stringtie"
+    conf_name = "stringtie_merge"
     order1 = Ordic([("--merge",""),("-o",outfile)])
     order2 = Ordic()
-    if conf["all"]["gff"]:
-        order2["-G"] = conf["all"]["gff"]
+
+    # Must supply -G option explicitly in stringtie_merge in confs.
     order2[" ".join(gtfs)] = ""
-    merge = Prog_Rsp(conf,"stringtie",order1,order2,silence)
+    merge = Prog_Rsp(conf,progname,order1,order2,silence,conf_name = conf_name)
     merge.run()
     del merge
     return outfile

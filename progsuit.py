@@ -334,16 +334,19 @@ class Prog_Rsp(Pconf,Prog):
     '''Prog class for RNAseqpip
     '''
     
-    def __init__(self,Conf,progname,order1={},order2={},silence=False):
-        #Conf is a Configuration object.
-        #progname should be same with which in configuration.txt
-        #order1 and order2 be as {a:valuea,b:valueb,c:"",d:"aaa bbb",...}
-        #order1 has high priority, order2 has low priority
-        #self.data = {parameter1:value1,parameter}
+    def __init__(self,Conf,progname,order1={},order2={},silence=False,conf_name=None):
+        # Conf is a Configuration object.
+        # progname should be same with which in configuration.txt
+        # order1 and order2 be as {a:valuea,b:valueb,c:"",d:"aaa bbb",...}
+        # order1 has high priority, order2 has low priority
+        # The parameters are loaded from Conf with conf_name.
+        # self.data = {parameter1:value1,parameter}
         
         self.Conf = Conf
+        if conf_name == None:
+            conf_name = progname
         self.progname = progname
-        self.myPconf = self.Conf[progname] if self.Conf[progname] else {}#16/7/26
+        self.myPconf = self.Conf[conf_name] if self.Conf[conf_name] else {}#19/1/21
         self.order1, self.order2 = order1, order2
         self.silence = silence
         #changed in 16/7/2
