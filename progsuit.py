@@ -1,6 +1,8 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import os, re, sys, copy
+import subprocess
+from subprocess import PIPE
 import logging
 from collections import OrderedDict as Ordic
 
@@ -316,19 +318,17 @@ class Group_data(Configuration):
 class Prog(object):
         
     def run_order(self,order,name="unknown",silence=False):
-    
-        file=os.popen(order)
+        pfile=subprocess.Popen(order,shell=True,stdout=PIPE,stderr=PIPE)
         log.debug("run %s" % name)
-        log.debug(file.read())
-        self.error_handle(file.close(),name)
+        log.debug(pfile.stdout.read())
+        log.debug(pfile.stderr.read())
+        self.error_handle(pfile.returncode,name)
         
     def error_handle(self,code,name="unknown"):
-    
         if code:
             sys.stderr.write("Error in %s step.\n" % name)
             sys.exit(99)
             
-
 class Prog_Rsp(Pconf,Prog):
 
     '''Prog class for RNAseqpip
