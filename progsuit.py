@@ -318,15 +318,18 @@ class Group_data(Configuration):
 class Prog(object):
         
     def run_order(self,order,name="unknown",silence=False):
-        pfile=subprocess.Popen(order,shell=True,stdout=PIPE,stderr=PIPE)
+        p=subprocess.Popen(order,shell=True,stdout=PIPE,stderr=PIPE)
         log.debug("run %s" % name)
-        log.debug(pfile.stdout.read())
-        log.debug(pfile.stderr.read())
-        self.error_handle(pfile.returncode,name)
+        output, error = p.communicate()
+        log.debug(output)
+        log.info(error)
+        self.error_handle(p.returncode,name,error)
         
-    def error_handle(self,code,name="unknown"):
+    def error_handle(self,code,name="unknown",error=""):
         if code:
-            sys.stderr.write("Error in %s step.\n" % name)
+            log.critical("Error in %s step.\n" % name)
+            log.error(error)
+            #sys.stderr.write("Error in %s step.\n" % name)
             sys.exit(99)
             
 class Prog_Rsp(Pconf,Prog):
