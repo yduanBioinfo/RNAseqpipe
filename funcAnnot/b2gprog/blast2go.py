@@ -68,12 +68,12 @@ def get_seq(gtf_file,genome,outfile):
     subprocess.call(["gffread",gtf_file,"-g",genome,"-w",outfile])
     
 def blastx(genome,fasta,outfile,blastx="/home/yduan/soft/bio/seq/ncbi-blast-2.2.27+/bin/blastx"):
-    subprocess.call([blastx,"-query",fasta,"-db",genome,"-out",outfile,"-outfmt","5","-evalue","0.000001","-max_target_seqs","5","-num_threads","32","-show_gis"])
+    subprocess.call([blastx,"-query",fasta,"-db",genome,"-out",outfile,"-outfmt","5","-evalue","0.000001","-max_target_seqs","5","-num_threads",str(thread),"-show_gis"])
     
 def b2g(xmlfile,outfile):
     subprocess.call(["b2g","-in",xmlfile,"-annot","-out",outfile])
 
-def fasta2annot(fastafile,db,outpath=""):
+def fasta2annot(fastafile,db,outpath="",thread=8):
     '''
     fasta -> xml -> annot
     xml name:fastafile+.xml
@@ -81,15 +81,15 @@ def fasta2annot(fastafile,db,outpath=""):
     '''
     
     xmlfile = outpath+get_filename(fastafile)+".xml"
-    blastx(db,fastafile,xmlfile)
+    blastx(db,fastafile,xmlfile,thread)
     annotfile = xmlfile[:-4]#del ".xml" 
     b2g(xmlfile,annotfile)#blast2go out annotfile+".annot"
     return annotfile+".annot"
 
-def annot_gff(ingff,genome,dbs,outpath):
+def annot_gff(ingff,genome,dbs,outpath,thread):
     outfile=outpath+get_filename(ingff)+".fa"
     get_seq(ingff,genome,outfile)
-    annot_fa(outfile,dbs,outpath)
+    annot_fa(outfile,dbs,outpath,thread)
     subprocess.call(["rm",outfile])
 
 def clean_tmp(outpath,fa=True,annot=True,xml=False):
@@ -103,7 +103,7 @@ def clean_tmp(outpath,fa=True,annot=True,xml=False):
     if len(clean_lst) > 1:
         subprocess.call(clean_lst)
 
-def annot_fa(infa,dbs,outpath):
+def annot_fa(infa,dbs,outpath,thread):
     '''
     fasta -> xml -> annot -> IDs -> leftIDs -> unannoted fasta (-> xml)
     fasta name: tmp+index_of_db+.fa
@@ -117,7 +117,7 @@ def annot_fa(infa,dbs,outpath):
         db = dbs[i]
         tmp_fa = outpath+"tmp"+str(i)+".fa"
         subset_fa(infa,total_id,tmp_fa)
-        annote = fasta2annot(tmp_fa,db,outpath)
+        annote = fasta2annot(tmp_fa,db,outpath,thread)
         annote_id = get_IDs(annote)
         total_id = total_id - annote_id
         infa = tmp_fa
@@ -136,14 +136,15 @@ def main(argv):
     parser.add_argument('--infile',help='Fasta or gff file. Genome is in need, when gff is provide',nargs='?')
     parser.add_argument('-s','--genome',nargs='?',help='if genome fasta file is provide, infile should be gff file')
     parser.add_argument('-d','--dbs',nargs='+',help='protein dbs, .faa file')
+    parser.add_argument('-t','--thread',nargs='?',help='Number of threading for blastx',default=8)
     parser.add_argument('-o','--outpath',nargs='?',help='out file path',default='./b2g')
     args = parser.parse_args(argv[1:])    
     
     outpath = make_path(args.outpath)
     if args.genome:
-        annot_gff(args.infile,args.genome,args.dbs,outpath)
+        annot_gff(args.infile,args.genome,args.dbs,outpath,args.thread)
     else:
-        annot_fa(args.infile,args.dbs,outpath)
+        annot_fa(args.infile,args.dbs,outpath,args.thread)
     
 if __name__ == '__main__':
 
