@@ -3,6 +3,7 @@
 from __future__ import print_function
 import sys
 import hisat, cufflinks, htseq, verse, stringtie
+from expression.salmon_quantify import salmonpip
 
 from progsuit import Configuration, Group_data, getAbsPath, matchpath
 from RNAseqpip import log, add_arguments, BASE_CONF
@@ -110,6 +111,7 @@ def hisat_cufflinks_verse(myconf,myfq1,myfq2,fqnames,ali_path,ali_name,mygroup_d
     # stringtie results, gtf files
     merged = stringtie.merge(myconf,stringtie_ress,ali_path+"/merged_asm/merged.gtf")
     vscount = verse.versepip(myconf,sort_ress,ali_path,merged)
+    salmonpip(myconf,myfq1,myfq2,fqnames,ali_path+"/salmon",merged)
     return vscount, merged
 
 def hisat_stringtie_verse(myconf,myfq1,myfq2,fqnames,ali_path,ali_name,mygroup_data):
@@ -118,6 +120,7 @@ def hisat_stringtie_verse(myconf,myfq1,myfq2,fqnames,ali_path,ali_name,mygroup_d
     # stringtie results, gtf files
     merged = stringtie.merge(myconf,stringtie_ress,ali_path+"/merged_asm/merged.gtf")
     vscount = verse.versepip(myconf,sort_ress,ali_path,merged)
+    salmonpip(myconf,myfq1,myfq2,fqnames,ali_path+"/salmon",merged)
     return vscount, merged
 
 def hisat_verse(myconf,myfq1,myfq2,fqnames,ali_path,ali_name,mygroup_data):
@@ -130,6 +133,7 @@ def hisat_verse(myconf,myfq1,myfq2,fqnames,ali_path,ali_name,mygroup_data):
     merged = myconf["all"].get("gff")
 
     vscount = verse.versepip(myconf,sort_ress,ali_path,merged)
+    salmonpip(myconf,myfq1,myfq2,fqnames,ali_path+"/salmon",merged)
     return vscount, merged
 
 def count2exp(myconf,count,outdir=None):
