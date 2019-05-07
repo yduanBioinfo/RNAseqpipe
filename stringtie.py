@@ -49,7 +49,10 @@ def merge(conf,gtfs,outfile,silence=False):
     order1 = Ordic([("--merge",""),("-o",outfile)])
     order2 = Ordic()
 
-    # Must supply -G option explicitly in stringtie_merge in confs.
+    # If gff was applied in configuration, merge gtfs with its guiding.
+    if conf["all"].get("gff"):
+        order1["-G"] = conf["all"].get("gff")
+
     order2[" ".join(gtfs)] = ""
     merge = Prog_Rsp(conf,progname,order1,order2,silence,conf_name = conf_name)
     merge.run()
