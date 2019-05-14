@@ -37,14 +37,17 @@ def iter_map2ko(map2kofile):
             continue
         yield mypath, myko
 
+def iter_la(infile):
+    for line in infile:
+        yield line.strip().split(SEP)
+
 def get_count_of_DEGs(mygenefile,ko2mapData,countData,gene2ko=None):
     """
         When gene2ko is provide, get ko from gene/tx ID.
         Otherwise get ko from the second field of eachline.
     """
     alofDEGs = 0
-    for each in mygenefile:
-        la = each.strip().split(SEP)
+    for la in mygenefile:
         try:
             if gene2ko:
                 myko = gene2ko[la[0]]
@@ -62,8 +65,7 @@ def get_count_of_DEGs(mygenefile,ko2mapData,countData,gene2ko=None):
 def get_count_of_universe(myuniversefile,ko2mapData,countData):
     alofUniverse = 0
     gene2ko = {}
-    for each in myuniversefile:
-        la = each.strip().split(SEP)
+    for la in myuniversefile:
         try:
             myko = koPartten.match(la[1]).group(2)
             gene2ko[la[0]] = myko
@@ -98,7 +100,8 @@ def count(mygenefile,myuniversefile,map2kofile,outfile,mode):
     #[],[],[]...}
     
     # generate mapData
-    for mypath, myko in iter_map2ko(map2kofile):
+    #for mypath, myko in iter_map2ko(map2kofile):
+    for mypath, myko in map2kofile:
         mapData.setdefault(mypath,[]).append(myko)
     
     # generate ko2mapData
@@ -123,7 +126,8 @@ def main(argv):
     parser.add_argument('-o','--outfile',nargs='?',help="output file",default=sys.stdout,type=argparse.FileType('w'))
     parser.add_argument('-m','--mode',nargs='?',help="input file mode, annot(a) or genelist(g)",default='a',choices=['a','g'])
     args = parser.parse_args(argv[1:])
-    count(args.infile,args.bg,args.pthko,args.outfile,args.mode)
+    # Use iter_la and iter_map2ko makes count avilable to list-like object.
+    count(iter_la(args.infile),iter_la(args.bg),iter_map2ko(args.pthko),args.outfile,args.mode)
 
 if __name__ == '__main__':
     main(sys.argv)
