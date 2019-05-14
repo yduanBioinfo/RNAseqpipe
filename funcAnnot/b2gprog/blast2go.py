@@ -131,6 +131,9 @@ def annot_fa(infa,dbs,outpath,thread):
 def main(argv):
     
     import argparse, sys, os
+    """ To-Do:makeblastdb -dbtype prot -in /path/to/refseq_mod.fasta -parse_seqids
+        To-Do: accept xml files, and replace version to <BlastOutput_version>BLASTX 2.2.27+</BlastOutput_version>
+    """
     
     parser = argparse.ArgumentParser(description='blast2go pip')
     parser.add_argument('--infile',help='Fasta or gff file. Genome is in need, when gff is provide',nargs='?')
