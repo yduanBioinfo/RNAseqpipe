@@ -1,5 +1,6 @@
 #!/usr/bin/env Rscript
 
+help = "Usage:./mykeggenrich.R infile\n Outfile will be in the same directory"
 File <- commandArgs(TRUE)
 Table.a<-read.table(file=File,head=TRUE,sep="\t")
 fisherMul <- function(X1){
@@ -7,12 +8,8 @@ dim(X1)<-c(2,2)
 X1_fisher <- fisher.test(X1)
 X1_fisher[[1]]
 }
-#str((Table.a[,2:5]))
-#dim(Table.a[330,2:5])=c(2,2)
 
-#之前
 #p.value<-sapply(data.frame(rbind(Table.a[,2],Table.a[,3],Table.a[,4],Table.a[,5])),FUN=fisherMul)
-#之后
 p.value<-sapply(data.frame(rbind(Table.a[,2],(Table.a[,3]-Table.a[,2]),Table.a[,4],(Table.a[,5]-Table.a[,4]))),FUN=fisherMul)
 Fisher.value<-as.vector(p.value)
 pvalue.adj <- as.vector(p.adjust(Fisher.value,method="fdr"))#FDR adjust
