@@ -68,7 +68,7 @@ def get_seq(gtf_file,genome,outfile):
     subprocess.call(["gffread",gtf_file,"-g",genome,"-w",outfile])
     
 def blastx(genome,fasta,outfile,blastx="/home/yduan/soft/bio/seq/ncbi-blast-2.2.27+/bin/blastx"):
-    subprocess.call([blastx,"-query",fasta,"-db",genome,"-out",outfile,"-outfmt","5","-evalue","0.000001","-max_target_seqs","5","-num_threads",str(thread),"-show_gis"])
+    subprocess.call([blastx,"-query",fasta,"-db",genome,"-out",outfile,"-outfmt","5","-evalue","0.000001","-max_target_seqs","200","-num_threads",str(thread),"-show_gis"])
     
 def b2g(xmlfile,outfile):
     subprocess.call(["b2g","-in",xmlfile,"-annot","-out",outfile])
