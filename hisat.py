@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 
 import sys, os, copy
+import subprocess
+from subprocess import PIPE
 from progsuit import Configuration, Prog_Rsp, log
 from collections import OrderedDict as Ordic
 
@@ -12,6 +14,7 @@ balign : align using hisat2 build and if index is not exist, build it.
 '''
 
 CLIP_CONVERTER=os.path.join(os.path.dirname(__file__),"conv_clipping.sh")
+MERGE_FLAGE=os.path.join(os.path.dirname(__file__),"stat/merge_flagstat.py")
 
 def check_index(index):
 
@@ -75,14 +78,22 @@ def pip_hisat(myconf,fq1,fq2,subpath,ali_path,ali_name,conv_clip=True,silence=Fa
     
     if rm_sam:
         os.system("rm %s"%hst_out)
+
+    # stat mapping rate
+    flagname = "flagstat.txt"
+    flagstat = ali_path+"/"+flagname
+    order = ["samtools","flagstat",sort_out]
+    with open(flagstat,'w') as output:
+        p=subprocess.check_call(order,stdout=output)
     
-    return hst_out, sort_out #alignment result name
+    return hst_out, sort_out, flagstat #alignment result name
     
 def pip_hisats(conf,fq1,fq2,subpath,ali_path,ali_name):
     #conf : Configuration obj
     
     result = []#hisat result
     result_s = []#sorted results
+    result_f = []# flag stat results
     for i in range(len(fq1)):
         myfq1 = fq1[i]
         try:
@@ -92,7 +103,14 @@ def pip_hisats(conf,fq1,fq2,subpath,ali_path,ali_name):
         tmp = pip_hisat(conf,myfq1,myfq2,subpath[i],ali_path,ali_name)
         result.append(tmp[0])
         result_s.append(tmp[1])
-        
+        result_f.append(tmp[2])
+
+    # merge mapping rate
+    with open(ali_path+"/all_flagstat.txt",'w') as output:
+        order = [MERGE_FLAGE]
+        order.extend(result_f)
+        subprocess.check_call(order,stdout=output)
+    
     return result,result_s
     
 def getAbsPath(inpath,default='./tmp'):
