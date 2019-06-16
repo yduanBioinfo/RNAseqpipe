@@ -10,7 +10,7 @@ from funcAnnot.kegg.annot2go_stat import annot2go_stat
 from funcAnnot.annot_from_db import annot
 from funcAnnot.kegg.koenrich.keggenrich import enrich as koenrich
 from progsuit import Configuration, Group_data, getAbsPath, matchpath
-from RNAseqpip import log, add_arguments
+from RNAseqpipe import log, add_arguments
 from get_gene_length import len_for_Rsp
 from get_geneids import get_geneids
 

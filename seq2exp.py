@@ -6,7 +6,7 @@ import hisat, cufflinks, htseq, verse, stringtie
 from expression.salmon_quantify import salmonpip
 
 from progsuit import Configuration, Group_data, getAbsPath, matchpath
-from RNAseqpip import log, add_arguments, BASE_CONF
+from RNAseqpipe import log, add_arguments, BASE_CONF
 
 def seq2exp(myconf,myfq1,myfq2,fqnames,ali_path,ali_name,mygroup_data,run_cdiff=True):
 
