@@ -131,8 +131,22 @@ def versepip(conf,files,mpath,gff,outpath=None,p=8,silence=False):
 
     outfile = addends(mpath)+time.strftime("merged%y_%m_%d_%H.count",time.localtime())
     # Add length to outfile
-    lenfile = addends(mpath)+time.strftime("merged%y_%m_%d_%H.length",time.localtime())
-    get_length(conf,lenfile,gff)
+    
+    # Block get length... the core script is in alter need. 
+    # The error info
+    #File "/home/yduan/script/python/bio/seq/base.py", line 235, in __iterGff
+    #yield Gff_rec(line.split(self.sep),self.fm)
+    #File "/home/yduan/script/python/bio/seq/base.py", line 290, in __init__
+    #self.format_attr(fm)
+    #File "/home/yduan/script/python/bio/seq/base.py", line 321, in format_attr
+    #self.format_normal()
+    #File "/home/yduan/script/python/bio/seq/base.py", line 311, in format_normal
+    #self.gene_id = self.attr["gene_id"]
+    #KeyError: 'gene_id'
+
+    #lenfile = addends(mpath)+time.strftime("merged%y_%m_%d_%H.length",time.localtime())
+    #get_length(conf,lenfile,gff)
+    lenfile = None
     catcount(conf,outfiles,outfile,lfile=lenfile)
 
     return outfile

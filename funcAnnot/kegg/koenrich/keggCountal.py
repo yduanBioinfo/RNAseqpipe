@@ -14,6 +14,13 @@ count to pathway
 """
 ko	ko:KXXXX or KXXXX
 map	path:koxxxxx or path:mapxxxxx or mapxxxxx
+
+pathway.ko file:
+... ...
+... ...
+bg file:
+... ...
+... ...
 """
 koPartten = re.compile(r'(ko:)?([^:]*)')
 mapPartten = re.compile(r'(path:)?(ko.*|map.*)') 
