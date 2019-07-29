@@ -51,9 +51,11 @@ def pip_hisat(myconf,fq1,fq2,subpath,ali_path,ali_name,conv_clip=True,silence=Fa
     #hisat2 out : /abs/path/to/name.sam
     
     #run hisat2
-    order1 = {'-1':fq1,'-S':hst_out}
+    # Pair-end library of single-end library.
     if fq2:
-        order1['-2'] = fq2
+        order1 = {'-1':fq1,'-2':fq2,'-S':hst_out}
+    else:
+        order1 = {'-U':fq1,'-S':hst_out}
     order2 = {}
     hisat2 = Prog_Rsp(myconf,"hisat2",order1,order2,silence)
     hisat2.run()
