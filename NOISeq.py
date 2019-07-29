@@ -279,7 +279,7 @@ verbose=True,path=''):
     if path:
         #path should endwith "/"
         file = path+file
-    print r('QCreport(%s,file=%s,samples=%s,factor=%s,norm=%s)'%(input,r_str(file),samples,factor,norm))
+    print(r('QCreport(%s,file=%s,samples=%s,factor=%s,norm=%s)'%(input,r_str(file),samples,factor,norm)))
         
 class NOISeqbio(Prog_Rsp):
 

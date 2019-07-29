@@ -24,7 +24,7 @@ class Pconf(object):
         return self.data.get(key)
         
     def __contains__(self,value):
-        return self.data.has_key(value)
+        return value in self.data
         
     def __setitem__(self,key,value):
         self.data[key] = value
