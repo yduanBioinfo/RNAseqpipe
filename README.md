@@ -1,4 +1,6 @@
 # RNAseqpipe
+
+**A pipeline of RNAseq analysis**
 Copyright (C) 2019 You Duan
 
 general RNAseq process pipeline
