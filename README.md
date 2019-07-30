@@ -1,6 +1,7 @@
 # RNAseqpipe
 
 **A pipeline of RNAseq analysis**
+
 Copyright (C) 2019 You Duan
 
 general RNAseq process pipeline
@@ -14,6 +15,7 @@ yduan94@ihb.ac.cn
 Python 3.6.7
 
 **Introduction**
+
 ...
 
 **to-do**
