@@ -37,7 +37,7 @@ def stringties(conf,bamfs,outpath=None,silence=False,maxp=20):
         error_handle(1,"stringties")
     if not outpath:
         outpath = map(os.path.dirname,bamfs)
-    outfiles = map(add_trans,outpath)
+    outfiles = list(map(add_trans,outpath))
 
     pool = Pool(maxp)
     pool.map(stringtie_star,zip(itertools.repeat(myconf),bamfs,outfiles,itertools.repeat(silence)))
