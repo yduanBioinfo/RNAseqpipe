@@ -40,7 +40,7 @@ def stringties(conf,bamfs,outpath=None,silence=False,maxp=20):
     outfiles = map(add_trans,outpath)
 
     pool = Pool(maxp)
-    pool.map(stringtie_star,itertools.izip(itertools.repeat(myconf),bamfs,outfiles,itertools.repeat(silence)))
+    pool.map(stringtie_star,zip(itertools.repeat(myconf),bamfs,outfiles,itertools.repeat(silence)))
     return outfiles
 
 def merge(conf,gtfs,outfile,silence=False):    

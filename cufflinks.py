@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 '''
 _version = 0.2.1
@@ -41,7 +41,7 @@ def cufflinks(conf,bamfs,outpath=None,silence=False,maxp=20):
     outfiles = map(add_trans,outpath)
 
     pool = Pool(maxp)
-    pool.map(cufflink_star,itertools.izip(itertools.repeat(myconf),bamfs,outpath,itertools.repeat(silence)))
+    pool.map(cufflink_star,zip(itertools.repeat(myconf),bamfs,outpath,itertools.repeat(silence)))
     return outfiles
 
 def cuffmerge(conf,assembly,outpath,silence=False):

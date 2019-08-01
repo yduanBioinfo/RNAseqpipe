@@ -321,9 +321,9 @@ class Prog(object):
         p=subprocess.Popen(order,shell=True,stdout=PIPE,stderr=PIPE)
         log.debug("run %s" % name)
         output, error = p.communicate()
-        log.debug(output)
-        log.info(error)
-        self.error_handle(p.returncode,name,error)
+        log.debug(output.decode("utf-8"))
+        log.info(error.decode("utf-8"))
+        self.error_handle(p.returncode,name,error.decode("utf-8"))
         
     def error_handle(self,code,name="unknown",error=""):
         if code:
