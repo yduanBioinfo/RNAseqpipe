@@ -2,7 +2,8 @@
 
 help = "Usage:./mykeggenrich.R infile\n Outfile will be in the same directory"
 File <- commandArgs(TRUE)
-Table.a<-read.table(file=File,head=TRUE,sep="\t")
+tmp <- tryCatch(Table.a <- read.table(file=File,head=TRUE,sep="\t"), error=function(e) NULL)
+if(is.null(tmp)){print("Warning: The input file is empty");q()}
 fisherMul <- function(X1){
 dim(X1)<-c(2,2)
 X1_fisher <- fisher.test(X1)

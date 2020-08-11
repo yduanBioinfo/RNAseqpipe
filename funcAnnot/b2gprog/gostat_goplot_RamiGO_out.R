@@ -159,6 +159,12 @@ Usage="cat genelist | gostat_goplot_RamiGO_out.R - dbfile outdir ifonlylist
         GO:0005783	ISA	CIWT.295.3
     outdir	outprefix (defalut:./goenrich)
     ifonlylist	type of genelist. T,True,[empty] means pure list of gene ID, others means NOISeq output.
+
+    When the provided genelist has not enriched to any GO term, the fowllowing error will be reported:
+        Error in order(pvals) : argument 1 is not a vector
+        Calls: GOstat_and_output ... .hyperGTestInternal -> new -> initialize -> initialize -> order
+        Execution halted
+    This bug should be fixed in the future.
 "
 
 genelist <- read.table(ifelse(Args[1]=="-","stdin",Args[1]))
@@ -168,7 +174,7 @@ dbstatsFile <- Args[2]#go annot db file
 outdir <- ifelse(is.na(Args[3]),"goenrich",Args[3])
 outdir <- ifelse(("/"==substr(outdir,nchar(outdir),nchar(outdir))),outdir,paste(outdir,"/",sep=""))
 dir.create(outdir)
-# When apply NOISeq result, set ifonlylist to True(any word except for T or True).
+# When apply NOISeq result, set ifonlylist to ???True(any word except for T or True).???
 # When apply genelist, set ifonlylist to True or leave ifonlylist empty.
 ifonlylist <- ifelse(is.na(Args[4]) | (Args[4] == "T") | (Args[4] == "True"),T,F)
 if(ifonlylist){
