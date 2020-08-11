@@ -96,7 +96,10 @@ group_data.txt使用xml格式，分为两个部分，数据（dataset）和分�
 理论上，RNAseqpipe可以接收任意多的配置文件，在本例中，其中conf的优先级最高，其次conf1，再其次conf0。意味着，如果三个文件中同时定义了同一参数，那么最终使用的参数为优先级最高的文件中定义的参数。
 多参数系统事实上是为了适应多变的RNAseq测序手段和较为固定的策略的妥协方案。不同的转录组测序对应了不同的软件运行参数，因此参数往往是多变的；而往往有些转录组测序方案较为固定，如dUTP测序，同一实验室往往只研究少数的几个物种，例如我们实验室更多研究草鱼，在这些策略下，参数又是相对固定的。
 在我们的示例文件中，conf0对应了dUTP测序参数，conf1对应了草鱼的转录组分析参数，conf对应了使用hisat_stringtie_verse 的分析策略的参数。
-其中，hisat_stringtie_verse.conf 文件中<all> 标签下pipe参数的值为hsv，代表了使用hisat2 + stringtie + verse 的分析流程。这样的预定义流程包括如下：
+
+### 流程 ###
+
+在hisat_stringtie_verse.conf 文件中<all> 标签下pipe参数的值为hsv，代表了使用hisat2 + stringtie + verse 的分析流程。这样的预定义流程包括如下：
 - hisat_stringtie_verse
 - hisat_cuff_verse
 - hisat_htseq_count （不组装转录本，直接计数）
