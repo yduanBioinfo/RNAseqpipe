@@ -2,7 +2,7 @@
 
 #from gtf_cuff_table import Gff
 from collections import OrderedDict as Ordic
-from bio.seq.base import Gff
+from dypylib.bio.seq.base import Gff
 
 '''
 input gtf should only contain exon feature.

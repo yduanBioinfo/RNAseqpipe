@@ -3,7 +3,7 @@
 import os
 import subprocess
 from glob import glob
-from bio.seq.base import Fasta, write_fasta_o
+from dypylib.bio.seq.base import Fasta, write_fasta_o
 
 '''
 _version=0.0.2
