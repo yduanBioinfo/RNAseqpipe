@@ -3,6 +3,7 @@
 import os, re, sys, copy
 import subprocess
 from subprocess import PIPE
+import shlex
 import logging
 from collections import OrderedDict as Ordic
 
@@ -368,7 +369,8 @@ class Prog_Rsp(Pconf,Prog):
         order = self.gen_order(self.progname,self.data)
         #sys.stderr.write(order+"\n")
         log.info(order)
-        return self.run_order(order,self.progname,self.silence)
+        args = shlex.split(order)
+        return self.run_order(args,self.progname,self.silence)
         
     def get_prog_path(self,prog,myConf):
         #myConf is a Configuration object.(should be self.Conf)
