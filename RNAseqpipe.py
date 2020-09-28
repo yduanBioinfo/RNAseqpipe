@@ -21,16 +21,6 @@ from get_gene_length import len_for_Rsp
 from get_geneids import get_geneids
     
 logging.basicConfig()
-FILEPATH=os.path.realpath(__file__)
-FILEDIR=os.path.dirname(FILEPATH)
-CPTDE="cptDE.py"
-SEQ2EXP="seq2exp.py"
-FUNC="func.py"
-BASE_CONF=FILEDIR+"/confs/base.conf"
-
-def name_warning(name):
-    if os.path.basename(name) == "RNAseqpip.py":
-        log.warning("Main name will be changed to RNAseqpipe.py, please switch to it.")
 
 def add_arguments(parser):
     parser.add_argument('-c','--conf',help='configuration file',nargs='?',\
@@ -40,25 +30,25 @@ def add_arguments(parser):
     parser.add_argument('-q','--quite',help='Running quitely.',default=False,action='store_true')
     parser.add_argument('-o','--outpath',help='outpath',nargs='?')
 
-if __name__ == '__main__':
-
-    import sys
-    name_warning(sys.argv[0])
+def main(argv):
     parser = argparse.ArgumentParser(description='RNA-seq analyse pip')
     parser.add_argument('program',help='all for whole pip/ali for alignment/ass for assembly/\
     cptDE for compute different expression',choices=['all','cptDE','seq2exp','func'])
-    args=parser.parse_args(sys.argv[1:2])
+    args=parser.parse_args(argv[1:2])
 
     if args.program == 'cptDE':
-        from cptDE import main
-        main(sys.argv[1:])
+        from cptDE import main as sub_main
+        sub_main(argv[1:])
 
     if args.program == 'seq2exp':
-        from seq2exp import main
+        from seq2exp import main as sub_main
         # should avoid position parser.
-        main(sys.argv[1:])
+        sub_main(argv[1:])
         
     if args.program == 'func':
-        from func import main
-        main(sys.argv[1:])
+        from func import main as sub_main
+        sub_main(argv[1:])
         
+if __name__ == '__main__':
+    import sys
+    main(sys.argv)
