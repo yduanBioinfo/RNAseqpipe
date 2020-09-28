@@ -32,12 +32,6 @@ def name_warning(name):
     if os.path.basename(name) == "RNAseqpip.py":
         log.warning("Main name will be changed to RNAseqpipe.py, please switch to it.")
 
-def run_subp(argv,program):
-    #program shoule be in {CPTDE,SEQ2EXP,FUNC}
-    del argv[0]
-    argv[0] = FILEDIR+"/"+program
-    subprocess.call(argv)
-
 def add_arguments(parser):
     parser.add_argument('-c','--conf',help='configuration file',nargs='?',\
     default=None)
@@ -56,14 +50,15 @@ if __name__ == '__main__':
     args=parser.parse_args(sys.argv[1:2])
 
     if args.program == 'cptDE':
-        run_subp(sys.argv,CPTDE)        
+        from cptDE import main
+        main(sys.argv[1:])
 
     if args.program == 'seq2exp':
-        #run_subp(sys.argv,SEQ2EXP)
         from seq2exp import main
         # should avoid position parser.
         main(sys.argv[1:])
         
     if args.program == 'func':
-        run_subp(sys.argv,FUNC)        
+        from func import main
+        main(sys.argv[1:])
         

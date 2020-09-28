@@ -99,7 +99,7 @@ def main(argv):
     
     import argparse, sys
     
-    parser = argparse.ArgumentParser(description='RNASeqpip function annot program')
+    parser = argparse.ArgumentParser(description='RNASeqpipe function annot program')
     parser.add_argument('-d','--DEfile',help='DEfile(NOISeq out). when chosing func,\
     this option is required.',nargs='?')
     parser.add_argument('-t','--template_gff',help='when chosing cptDE or func,\
