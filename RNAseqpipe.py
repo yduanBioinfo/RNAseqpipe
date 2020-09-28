@@ -21,6 +21,9 @@ from get_gene_length import len_for_Rsp
 from get_geneids import get_geneids
     
 logging.basicConfig()
+FILEPATH=os.path.realpath(__file__)
+FILEDIR=os.path.dirname(FILEPATH)
+BASE_CONF=FILEDIR+"/confs/base.conf"
 
 def add_arguments(parser):
     parser.add_argument('-c','--conf',help='configuration file',nargs='?',\
