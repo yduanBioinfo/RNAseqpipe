@@ -84,7 +84,6 @@ class Configuration(Pconf):
         assert self.confs != []
 
         for _conf in self.confs:
-            print(_conf)
             self.parse_file(open(_conf))
         
     def parse_file(self,conf):
