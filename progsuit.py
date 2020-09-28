@@ -318,7 +318,7 @@ class Group_data(Configuration):
 class Prog(object):
         
     def run_order(self,order,name="unknown",silence=False):
-        p=subprocess.Popen(order,shell=True,stdout=PIPE,stderr=PIPE)
+        p=subprocess.Popen(order,stdout=PIPE,stderr=PIPE)
         log.debug("run %s" % name)
         output, error = p.communicate()
         log.debug(output.decode("utf-8"))
@@ -326,11 +326,13 @@ class Prog(object):
         self.error_handle(p.returncode,name,error.decode("utf-8"))
         
     def error_handle(self,code,name="unknown",error=""):
+        log.info("get in error_handle")
         if code:
             log.critical("Error in %s step.\n" % name)
             log.error(error)
             #sys.stderr.write("Error in %s step.\n" % name)
             sys.exit(99)
+        log.info(str(code))
             
 class Prog_Rsp(Pconf,Prog):
 

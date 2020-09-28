@@ -9,7 +9,6 @@ from progsuit import Configuration, Group_data, getAbsPath, matchpath
 from RNAseqpipe import log, add_arguments, BASE_CONF
 
 def seq2exp(myconf,myfq1,myfq2,fqnames,ali_path,ali_name,mygroup_data,run_cdiff=True):
-
     pipe = myconf["all"].get("pipe")
     if pipe == "hch":
         # Hisat+ Cufflinks+ HTseq
@@ -128,6 +127,7 @@ def hisat_verse(myconf,myfq1,myfq2,fqnames,ali_path,ali_name,mygroup_data):
     #Don't finding novel gene.
     #Only get expression.
 
+    log.debug("Running hisat_verse")
     ali_ress,sort_ress = hisat.pip_hisats(myconf,myfq1,myfq2,fqnames,ali_path,ali_name)
     #Target gff
     merged = myconf["all"].get("gff")

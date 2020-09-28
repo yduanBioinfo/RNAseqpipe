@@ -59,7 +59,10 @@ if __name__ == '__main__':
         run_subp(sys.argv,CPTDE)        
 
     if args.program == 'seq2exp':
-        run_subp(sys.argv,SEQ2EXP)        
+        #run_subp(sys.argv,SEQ2EXP)
+        from seq2exp import main
+        # should avoid position parser.
+        main(sys.argv[1:])
         
     if args.program == 'func':
         run_subp(sys.argv,FUNC)        

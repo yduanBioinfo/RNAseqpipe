@@ -40,8 +40,10 @@ def pip_hisat(myconf,fq1,fq2,subpath,ali_path,ali_name,conv_clip=True,silence=Fa
     
     #build index if needed
     if not check_index(myconf['hisat2']['-x']):
+        log.info("index for hisat2 is not exist, building it.")
         build_index(myconf['all']['genome'],myconf['hisat2']['-x'])
-    
+    log.debug("after check index")
+
     #hisat2
     if not subpath:
         subpath = os.path.basename(fq1).split(".")[0]
@@ -93,6 +95,7 @@ def pip_hisat(myconf,fq1,fq2,subpath,ali_path,ali_name,conv_clip=True,silence=Fa
 def pip_hisats(conf,fq1,fq2,subpath,ali_path,ali_name):
     #conf : Configuration obj
     
+    log.debug("get in pip hisats")
     result = []#hisat result
     result_s = []#sorted results
     result_f = []# flag stat results
@@ -102,6 +105,7 @@ def pip_hisats(conf,fq1,fq2,subpath,ali_path,ali_name):
             myfq2 = fq2[i]
         except:
             myfq2 = None
+        log.debug("start a hisat")
         tmp = pip_hisat(conf,myfq1,myfq2,subpath[i],ali_path,ali_name)
         result.append(tmp[0])
         result_s.append(tmp[1])
