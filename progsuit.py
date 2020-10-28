@@ -326,13 +326,13 @@ class Prog(object):
         self.error_handle(p.returncode,name,error.decode("utf-8"))
         
     def error_handle(self,code,name="unknown",error=""):
-        log.info("get in error_handle")
+        #log.info("get in error_handle")
         if code:
             log.critical("Error in %s step.\n" % name)
             log.error(error)
+            log.info(str(code))
             #sys.stderr.write("Error in %s step.\n" % name)
             sys.exit(99)
-        log.info(str(code))
             
 class Prog_Rsp(Pconf,Prog):
 
@@ -367,7 +367,7 @@ class Prog_Rsp(Pconf,Prog):
     
         order = self.gen_order(self.progname,self.data)
         #sys.stderr.write(order+"\n")
-        log.info(order)
+        log.info("run ouder:"+order)
         args = shlex.split(order)
         return self.run_order(args,self.progname,self.silence)
         

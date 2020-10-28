@@ -8,7 +8,6 @@ from progsuit import Prog_Rsp, log, addends, get_filename
 from get_gene_length import len_for_Rsp
 
 def verse(conf,bam,outpath,gff,silence=False):
-    
     #run one verse program
 
     progname = "verse"
@@ -89,3 +88,25 @@ def versepip(conf,files,mpath,gff,outpath=None,p=8,silence=False):
     catcount(conf,outfiles,outfile,lfile=lenfile)
 
     return outfile
+
+def main(argv):
+    import argparse
+    from progsuit import Configuration
+    from RNAseqpipe import BASE_CONF
+
+    parser = argparse.ArgumentParser(description="Count with verse")
+    parser.add_argument('infile',nargs='+',help="input bam files")
+    parser.add_argument('--gtf',required=True,help="gtf file")
+    #parser.add_argument('-c','--conf',required=True,help="conf file")
+    parser.add_argument('-c','--conf',help="conf file")
+    parser.add_argument('-o','--outfile',required=True,help="output file")
+    args = parser.parse_args(argv[1:])
+    ## set to info level
+    log.setLevel(20)
+    myconf = Configuration(args.conf, base_conf=BASE_CONF)
+    versepip(myconf,args.infile,args.outfile,args.gtf,silence=False)
+
+
+if __name__ == '__main__':
+    import sys
+    main(sys.argv)

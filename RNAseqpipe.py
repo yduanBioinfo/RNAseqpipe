@@ -36,7 +36,7 @@ def add_arguments(parser):
 def main(argv):
     parser = argparse.ArgumentParser(description='RNA-seq analyse pip')
     parser.add_argument('program',help='all for whole pip/ali for alignment/ass for assembly/\
-    cptDE for compute different expression',choices=['all','cptDE','seq2exp','func'])
+    cptDE for compute different expression',choices=['all','cptDE','seq2exp','func','verse'])
     args=parser.parse_args(argv[1:2])
 
     if args.program == 'cptDE':
@@ -50,6 +50,10 @@ def main(argv):
         
     if args.program == 'func':
         from func import main as sub_main
+        sub_main(argv[1:])
+
+    if args.program == 'verse':
+        from verse import main as sub_main
         sub_main(argv[1:])
         
 if __name__ == '__main__':
