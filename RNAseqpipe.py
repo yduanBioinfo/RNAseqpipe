@@ -34,7 +34,7 @@ def add_arguments(parser):
     parser.add_argument('-o','--outpath',help='outpath',nargs='?')
 
 def main(argv):
-    parser = argparse.ArgumentParser(description='RNA-seq analyse pip')
+    parser = argparse.ArgumentParser(description='RNA-seq analyse pipeline')
     parser.add_argument('program',help='all for whole pip/ali for alignment/ass for assembly/\
     cptDE for compute different expression',choices=['all','cptDE','seq2exp','func','verse'])
     args=parser.parse_args(argv[1:2])
