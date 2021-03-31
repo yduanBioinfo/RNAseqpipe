@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-#from gtf_cuff_table import Gff
+#from RNAseqpipe.gtf_cuff_table import Gff
 from collections import OrderedDict as Ordic
 from dypylib.bio.seq.base import Gff
 

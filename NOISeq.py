@@ -5,8 +5,9 @@
 import sys, re 
 from pyper import *
 import numpy as np
-from progsuit import Prog_Rsp
 from collections import OrderedDict as Ordic
+
+from RNAseqpipe.progsuit import Prog_Rsp
 
 def is_number(mystr):
 
@@ -324,7 +325,7 @@ class NOISeqbio(Prog_Rsp):
         
 def main(args):
 
-    from progsuit import Configuration, Group_data
+    from RNAseqpipe.progsuit import Configuration, Group_data
     
     Conf = Configuration(open(args[0]))
     group_data = Group_data(open(args[1]))

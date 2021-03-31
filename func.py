@@ -4,15 +4,15 @@ from __future__ import print_function
 import sys, os
 from threading import Thread
 
-import funcAnnot.b2gprog.GOannot as GOannot
-import funcAnnot.kegg.KOannot as KOannot
-from funcAnnot.kegg.annot2go_stat import annot2go_stat
-from funcAnnot.annot_from_db import annot
-from funcAnnot.kegg.koenrich.keggenrich import enrich as koenrich
-from progsuit import Configuration, Group_data, getAbsPath, matchpath
-from RNAseqpipe import log, add_arguments
-from get_gene_length import len_for_Rsp
-from get_geneids import get_geneids
+import RNAseqpipe.funcAnnot.b2gprog.GOannot as GOannot
+import RNAseqpipe.funcAnnot.kegg.KOannot as KOannot
+from RNAseqpipe.funcAnnot.kegg.annot2go_stat import annot2go_stat
+from RNAseqpipe.funcAnnot.annot_from_db import annot
+from RNAseqpipe.funcAnnot.kegg.koenrich.keggenrich import enrich as koenrich
+from RNAseqpipe.progsuit import Configuration, Group_data, getAbsPath, matchpath
+from RNAseqpipe.run_RNAseqpipe import log, add_arguments
+from RNAseqpipe.get_gene_length import len_for_Rsp
+from RNAseqpipe.get_geneids import get_geneids
 
 def func_annot(myconf,DEfile,template_gff,outpath=None,godb=None,kodb=None):#outpath should be bug
     #functiong annot,GO and KEGG

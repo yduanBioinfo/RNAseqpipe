@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from gtf_cuff_table import Gff
+from RNAseqpipe.gtf_cuff_table import Gff
 import sys
 
 '''usage: ./get_geneids.py gff outfile

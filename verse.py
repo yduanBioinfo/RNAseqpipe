@@ -4,8 +4,8 @@ import sys, os, time, itertools
 from multiprocessing import Pool
 from collections import OrderedDict as Ordic
 
-from progsuit import Prog_Rsp, log, addends, get_filename
-from get_gene_length import len_for_Rsp
+from RNAseqpipe.progsuit import Prog_Rsp, log, addends, get_filename
+from RNAseqpipe.get_gene_length import len_for_Rsp
 
 def verse(conf,bam,outpath,gff,silence=False):
     #run one verse program
@@ -91,8 +91,8 @@ def versepip(conf,files,mpath,gff,outpath=None,p=8,silence=False):
 
 def main(argv):
     import argparse
-    from progsuit import Configuration
-    from RNAseqpipe import BASE_CONF
+    from RNAseqpipe.progsuit import Configuration
+    from RNAseqpipe.run_RNAseqpipe import BASE_CONF
 
     parser = argparse.ArgumentParser(description="Count with verse")
     parser.add_argument('infile',nargs='+',help="input bam files")
@@ -105,7 +105,6 @@ def main(argv):
     log.setLevel(20)
     myconf = Configuration(args.conf, base_conf=BASE_CONF)
     versepip(myconf,args.infile,args.outfile,args.gtf,silence=False)
-
 
 if __name__ == '__main__':
     import sys

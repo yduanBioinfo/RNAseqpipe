@@ -2,11 +2,11 @@
 
 from __future__ import print_function
 import sys
-import hisat, cufflinks, htseq, verse, stringtie
-from expression.salmon_quantify import salmonpip
 
-from progsuit import Configuration, Group_data, getAbsPath, matchpath
-from RNAseqpipe import log, add_arguments, BASE_CONF
+from RNAseqpipe import hisat, cufflinks, htseq, verse, stringtie
+from RNAseqpipe.expression.salmon_quantify import salmonpip
+from RNAseqpipe.progsuit import Configuration, Group_data, getAbsPath, matchpath
+from RNAseqpipe.run_RNAseqpipe import log, add_arguments, BASE_CONF
 
 def seq2exp(myconf,myfq1,myfq2,fqnames,ali_path,ali_name,mygroup_data,run_cdiff=True):
     pipe = myconf["all"].get("pipe")

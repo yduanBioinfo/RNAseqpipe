@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 import sys, os
-from progsuit import Configuration, Prog_Rsp
+from RNAseqpipe.progsuit import Configuration, Prog_Rsp
 
 def get_filename(path):
 	

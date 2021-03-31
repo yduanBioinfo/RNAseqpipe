@@ -5,7 +5,8 @@ _version=0.0.1
 '''
 import sys, os, time, threading
 from collections import OrderedDict as Ordic
-from progsuit import Configuration, Prog_Rsp
+
+from RNAseqpipe.progsuit import Configuration, Prog_Rsp
 
 mythreads = []
 threadLock = threading.Lock()

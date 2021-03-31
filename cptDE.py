@@ -3,10 +3,10 @@
 from __future__ import print_function
 import sys, os
 
-import NOISeq
-from progsuit import Configuration, Group_data, getAbsPath, matchpath
-from RNAseqpipe import add_arguments
-from get_gene_length import len_for_Rsp
+import RNAseqpipe.NOISeq
+from RNAseqpipe.progsuit import Configuration, Group_data, getAbsPath, matchpath
+from RNAseqpipe.run_RNAseqpipe import add_arguments
+from RNAseqpipe.get_gene_length import len_for_Rsp
 
 def cptDE(myconf,ali_path,mygroup_data,expressionf,samples_table,template_gff):
     #args.expressionf args.samples_table args.template_gff

@@ -3,8 +3,9 @@
 import sys, os, copy
 import subprocess
 from subprocess import PIPE
-from progsuit import Configuration, Prog_Rsp, log
 from collections import OrderedDict as Ordic
+
+from RNAseqpipe.progsuit import Configuration, Prog_Rsp, log
 
 '''
 [usage] : ./hisat.py build/align/balign [hisat style order]

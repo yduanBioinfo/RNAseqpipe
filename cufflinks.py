@@ -7,8 +7,9 @@ _version = 0.2.1
 import sys, os, copy
 import itertools
 from collections import OrderedDict as Ordic
-from progsuit import Configuration, Prog_Rsp
 from multiprocessing import Pool
+
+from RNAseqpipe.progsuit import Configuration, Prog_Rsp
 
 def cufflink(conf,bamf,outpath,silence=False,thre=0):
     #conf if configuration obj.
