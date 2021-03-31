@@ -33,7 +33,6 @@ def main(argv):
     from RNAseqpipe.run_RNAseqpipe import BASE_CONF
 
     parser = argparse.ArgumentParser(description="Count with salmon")
-    parser.add_argument('infile',nargs='?',help="Input RNAseqpipe data file.")
     parser.add_argument('--gtf',required=True,help="gtf file")
     parser.add_argument('--genome',required=True,help="genome file")
     parser.add_argument('-t', '--thread', default=8, type=int,\

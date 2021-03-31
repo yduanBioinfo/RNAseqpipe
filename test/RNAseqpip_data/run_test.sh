@@ -15,7 +15,7 @@ cf_root="../../confs"
 mkdir testout
 ## set2exp count mode
 ## quite mode
-../../run_RNAseqpipe.py seq2exp -c ${cf_root}/dUTP.conf,${cf_root}/gc_no_gff.conf,${cf_root}/hisat_stringtie_verse.conf -g ${sg} -o testout/hvc_count_out -q && echo "hsv seq2exp done!" || echo "hsv seq2exp faild!"
+#../../run_RNAseqpipe.py seq2exp -c ${cf_root}/dUTP.conf,${cf_root}/gc_no_gff.conf,${cf_root}/hisat_stringtie_verse.conf -g ${sg} -o testout/hvc_count_out -q && echo "hsv seq2exp done!" || echo "hsv seq2exp faild!"
 ## verbose mode
 #../../run_RNAseqpipe.py seq2exp -c ${cf_root}/dUTP.conf,${cf_root}/gc_no_gff.conf,${cf_root}/dUTP.conf,${cf_root}/hisat_stringtie_verse.conf -g ${sg} -o testout/hvc_count_out --verbose && echo "hsv seq2exp done!" || echo "hsv seq2exp faild!"
 #echo "../../run_RNAseqpipe.py seq2exp -c ${cf_root}/hisat_stringtie_verse.conf -g ${sg} -o testout/hvc_count_out --verbose" 
