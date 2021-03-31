@@ -11,7 +11,7 @@ from collections import OrderedDict as Ordic
 from RNAseqpipe.progsuit import Prog_Rsp, log, addends, get_filename
 from RNAseqpipe.get_gene_length import len_for_Rsp
 
-SALMON=os.path.dirname(sys.argv[0])+"/expression/salmon_quantify.sh"
+SALMON=os.path.dirname(os.path.realpath(sys.argv[0]))+"/expression/salmon_quantify.sh"
 
 def run_salmonpip(myfq1,myfq2,fqnames,genome, gff, outdir, p=8):
     """ Function for main purpose. """
