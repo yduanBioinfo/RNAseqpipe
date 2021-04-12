@@ -65,7 +65,6 @@ class Configuration(Pconf):
     '''
     
     def __init__(self,conf,base_conf=None):
-        
         self._st_pattern = re.compile(r"\<(\S+)\>")
         self._ed_pattern = re.compile(r"\<[/](\S+)\>")
         self.data = {}
@@ -97,7 +96,7 @@ class Configuration(Pconf):
             # and save paras into a Pconf object.
             if name and ed:
                 if name != ed.group(1):
-                    log.critical("confituration format error!")
+                    log.critical("configuration format error!")
                     sys.exit(1)
                 # Pconf exist, update it
                 if name in self.data:
@@ -225,12 +224,10 @@ class Group_data(Configuration):
     '''
     
     def __init__(self,conf):
-        
         self.group = ''#Group object
         super(Group_data,self).__init__(conf)
         
     def parse_file(self,conf):
-    
         paras = [] #parameters
         name = ''
         
@@ -241,8 +238,7 @@ class Group_data(Configuration):
             if name and ed:
                 #end of a program
                 if name != ed.group(1):
-                    sys.stderr.write("\
-                    configuration format error!\n")
+                    log.critical("Format error in group data!")
                     sys.exit(1)
                 if name == 'GROUP':
                     self.group = Group(paras)
