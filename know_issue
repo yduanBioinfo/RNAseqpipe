@@ -3,4 +3,6 @@
 3. Temp file need to be creat as cptDE input.
 4. Creat a common api for muiltple thread setting. How about -p in all.
 5. Enviromental setting.
-Kaas online should be abord, or update.
+6. IMPORTANT. Write test with py.test (Can refer to dypylib).
+7. Kaas online should be abord, or update.
+8. Merge parse file in Configuration and group data.
