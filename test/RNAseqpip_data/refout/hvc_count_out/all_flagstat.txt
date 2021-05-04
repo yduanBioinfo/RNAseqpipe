@@ -1,0 +1,16 @@
+Metric	TEST1	TEST2	TEST3	TEST4
+in total	21622	22115	22374	22378
+secondary	1622	2115	2374	2378
+supplementary	0	0	0	0
+duplicates	0	0	0	0
+mapped	17894	17420	16383	16387
+mapped_rate	82.76%	78.77%	73.22%	73.23%
+paired in sequencing	20000	20000	20000	20000
+read1	10000	10000	10000	10000
+read2	10000	10000	10000	10000
+properly paired	15422	14470	13128	13128
+properly paired_rate	77.11%	72.35%	65.64%	65.64%
+with itself and mate mapped	15978	15018	13718	13718
+singletons	294	287	291	291
+singletons_rate	1.47%	1.43%	1.46%	1.46%
+with mate mapped to a different chr	107	93	72	72

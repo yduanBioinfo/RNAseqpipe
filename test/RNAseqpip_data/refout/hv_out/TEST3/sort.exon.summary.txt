@@ -1,0 +1,25 @@
+AnnotationFile	/home/lab/genomes/Fish/grass_carp/new_genome/dlmrna.gc.final.gtf
+Exon:
+	Unmerged	251175
+	Merged	251144
+	Genes	1
+	Chromosomes	3679
+
+InputFile	/home/yduan/work_file/RNAseqpip/test/RNAseqpip_data/testout/hv_out/TEST3/sort.bam
+TotalReadPairs	13692
+MissingMates	5032
+TotalAssigned	2600
+TotalAssignedFraction	19.0%
+
+AssignedExon	2600
+AssignedExonFraction	19.0%
+AmbiguousExon	0
+
+NoFeature	7830
+MultiMapping	315
+Unmapped	2947
+LowMAPQ	0
+TLENTooLong/TooShort	0
+Chimera	0
+Nonjunction	0
+Duplicate	0
