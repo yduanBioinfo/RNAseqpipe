@@ -15,8 +15,8 @@ sg=gp_root + "/small_group_data.txt"
 cf_root="./confs"
 
 # Requeired data
-genome = "/biodb/genomes/Fish/grass_carp/new_genome/del_empty_line.alter.C_idella_female_scaffolds.fasta"
-gff = "./test/RNAseqpip_data/data/dlmrna.gc.final.gff"
+genome = "./test/RNAseqpip_data/data/test_genome.fa"
+gff = "./test/RNAseqpip_data/data/test.dlmrna.gc.final.gff"
 
 # Reference results
 refroot = "./test/RNAseqpip_data/refout"
