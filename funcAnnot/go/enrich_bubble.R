@@ -18,6 +18,9 @@ p <- arg_parser("Plot bubble for GO enrichment")
 # Add a positional argument
 p <- add_argument(p, "name",  help="Name of input file")
 p <- add_argument(p, "--outfile", help="Name of output file", default="goplot.pdf")
+p <- add_argument(p, "--width", help="width of graph", default=7)
+p <- add_argument(p, "--height", help="height of graph", default=10)
+p <- add_argument(p, "--units", help="unit of graph", default="in")
 argv <- parse_args(p)
 
 data <- read.table(ifelse(argv$name=="-","stdin",argv$name),header=TRUE,sep="\t")
@@ -31,5 +34,5 @@ p<- ggplot(data, aes(GODomain, Term)) +
     labs(color=expression(-log[10](Pvalue)),size="Count")+
     theme_bw()+
     theme(axis.text.y = element_text(size = rel(1.5)))
-ggsave(outfile)
+ggsave(outfile,width=argv$width,height=argv$height,units=argv$units)
 
