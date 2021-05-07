@@ -1,10 +1,5 @@
 #!/usr/bin/env Rscript-4.0.2
 
-Args <- commandArgs(TRUE)
-#two arguments: 
-#go_annot_db_file(gostats format) DE_out_file(NOISeq out format)
-#test gene in godb
-#version: 0.0.1
 Usage="cat genelist | goplot.R - outdir ifonlylist
     genelist	can be pure list of gene ID or NOISeq out file
     genelist:
@@ -16,12 +11,20 @@ Usage="cat genelist | goplot.R - outdir ifonlylist
 
 "
 
-data <- read.table(ifelse(Args[1]=="-","stdin",Args[1]),header=TRUE,sep="\t")
+library(argparser)
+library(ggplot2)
+
+p <- arg_parser("Plot bubble for GO enrichment")
+# Add a positional argument
+p <- add_argument(p, "name",  help="Name of input file")
+p <- add_argument(p, "--outfile", help="Name of output file", default="goplot.pdf")
+argv <- parse_args(p)
+
+data <- read.table(ifelse(argv$name=="-","stdin",argv$name),header=TRUE,sep="\t")
 # keep data$Term order
 data$Term <- factor(data$Term, levels = rev(data$Term))
-outfile <- ifelse(is.na(Args[2]),"goplot.pdf",Args[2])
+outfile <- argv$outfile
 
-library(ggplot2)
 p<- ggplot(data, aes(GODomain, Term)) +
     geom_point(aes(size=Count, color=-1*log10(Pvalue))) +
     scale_color_gradient(low="orange",high="red",na.value="NA")+

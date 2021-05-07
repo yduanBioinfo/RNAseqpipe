@@ -5,7 +5,7 @@ import subprocess
 import filecmp
 import glob
 import pytest
-from ..run_RNAseqpipe import main as run_main
+from ..test.function_for_test import check_exists
 
 gp_root="./test/RNAseqpip_data/data/gps"
 # template file
@@ -22,13 +22,7 @@ gff = "./test/RNAseqpip_data/data/test.dlmrna.gc.final.gff"
 # Reference results
 refroot = "./test/RNAseqpip_data/refout"
 
-def _check_exist(targets):
-    """ Make sure targets files exist and not empty 
-    (bigger than 100)."""
-    for t in targets:
-        assert os.path.exists(t) and os.path.getsize(t) > 100
-
-@pytest.mark.skip(reason="no way of currently testing this")
+#@pytest.mark.skip(reason="no way of currently testing this")
 def test_hvc(tmpdir):
     """Hisat2 + stringtie + verse + salmon
 
@@ -46,10 +40,10 @@ def test_hvc(tmpdir):
     
     targets = ["all_flagstat.txt","merged_asm/merged.fa","merged_asm/merged.gtf","salmon/quant_merge.elen","salmon/quant_merge.numreads","salmon/quant_merge.len","salmon/quant_merge.tpm"]
     targets = map(tmpdir.join, targets)
-    _check_exist(targets)
-    _check_exist(glob.glob(str(tmpdir.join("merged*.count"))))
+    check_exists(targets,100)
+    check_exists(glob.glob(str(tmpdir.join("merged*.count"))),100)
 
-@pytest.mark.skip(reason="no way of currently testing this")
+#@pytest.mark.skip(reason="no way of currently testing this")
 def test_hcv(tmpdir):
     """Hisat2 + cufflinks + verse"""
     #refdir = refroot+"/hcv_out"
@@ -58,10 +52,10 @@ def test_hcv(tmpdir):
     
     targets = ["all_flagstat.txt","merged_asm/merged.fa","merged_asm/merged.gtf","salmon/quant_merge.elen","salmon/quant_merge.numreads","salmon/quant_merge.len","salmon/quant_merge.tpm"]
     targets = map(tmpdir.join, targets)
-    _check_exist(targets)
-    _check_exist(glob.glob(str(tmpdir.join("merged*.count"))))
+    check_exists(targets,100)
+    check_exists(glob.glob(str(tmpdir.join("merged*.count"))),100)
 
-@pytest.mark.skip(reason="no way of currently testing this")
+#@pytest.mark.skip(reason="no way of currently testing this")
 def test_hv(tmpdir):
     """Hisat2 + verse"""
     #refdir = refroot+"/hcv_out"
@@ -70,10 +64,10 @@ def test_hv(tmpdir):
     
     targets = ["all_flagstat.txt"]
     targets = map(tmpdir.join, targets)
-    _check_exist(targets)
-    _check_exist(glob.glob(str(tmpdir.join("merged*.count"))))
+    check_exists(targets,100)
+    check_exists(glob.glob(str(tmpdir.join("merged*.count"))),100)
 
-@pytest.mark.skip(reason="no way of currently testing this")
+#@pytest.mark.skip(reason="no way of currently testing this")
 def test_salmon(tmpdir):
     """salmon"""
     #refdir = refroot+"/hcv_out"
@@ -82,5 +76,5 @@ def test_salmon(tmpdir):
     
     targets = ["quant_merge.elen","quant_merge.numreads","quant_merge.len","quant_merge.tpm"]
     targets = map(tmpdir.join, targets)
-    _check_exist(targets)
+    check_exists(targets,100)
 
