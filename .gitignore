@@ -1,2 +1,15 @@
 #ignore pyc
 *.pyc
+# Test temp files
+test/RNAseqpip_data/data/merged.fa
+test/RNAseqpip_data/data/salmon_index/
+test/RNAseqpip_data/data/test_genome.fa.fai
+test/RNAseqpip_data/data/test_genome_idx.1.ht2
+test/RNAseqpip_data/data/test_genome_idx.2.ht2
+test/RNAseqpip_data/data/test_genome_idx.3.ht2
+test/RNAseqpip_data/data/test_genome_idx.4.ht2
+test/RNAseqpip_data/data/test_genome_idx.5.ht2
+test/RNAseqpip_data/data/test_genome_idx.6.ht2
+test/RNAseqpip_data/data/test_genome_idx.7.ht2
+test/RNAseqpip_data/data/test_genome_idx.8.ht2
+
