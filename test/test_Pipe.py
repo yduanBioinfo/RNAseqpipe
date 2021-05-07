@@ -28,7 +28,7 @@ def _check_exist(targets):
     for t in targets:
         assert os.path.exists(t) and os.path.getsize(t) > 100
 
-#@pytest.mark.skip(reason="no way of currently testing this")
+@pytest.mark.skip(reason="no way of currently testing this")
 def test_hvc(tmpdir):
     """Hisat2 + stringtie + verse + salmon
 
@@ -49,7 +49,7 @@ def test_hvc(tmpdir):
     _check_exist(targets)
     _check_exist(glob.glob(str(tmpdir.join("merged*.count"))))
 
-#@pytest.mark.skip(reason="no way of currently testing this")
+@pytest.mark.skip(reason="no way of currently testing this")
 def test_hcv(tmpdir):
     """Hisat2 + cufflinks + verse"""
     #refdir = refroot+"/hcv_out"
@@ -61,7 +61,7 @@ def test_hcv(tmpdir):
     _check_exist(targets)
     _check_exist(glob.glob(str(tmpdir.join("merged*.count"))))
 
-#@pytest.mark.skip(reason="no way of currently testing this")
+@pytest.mark.skip(reason="no way of currently testing this")
 def test_hv(tmpdir):
     """Hisat2 + verse"""
     #refdir = refroot+"/hcv_out"
@@ -73,7 +73,7 @@ def test_hv(tmpdir):
     _check_exist(targets)
     _check_exist(glob.glob(str(tmpdir.join("merged*.count"))))
 
-#@pytest.mark.skip(reason="no way of currently testing this")
+@pytest.mark.skip(reason="no way of currently testing this")
 def test_salmon(tmpdir):
     """salmon"""
     #refdir = refroot+"/hcv_out"
