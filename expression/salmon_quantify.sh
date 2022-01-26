@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 Usage="salmon_quantify.sh ingff genome outdir threads library1_name fq1_1 fq1_2 library2_name fq2_1 fq2_2 ..."
 inputgff=$1
