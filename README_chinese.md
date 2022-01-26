@@ -12,10 +12,11 @@ yduan94@ihb.ac.cn
 
 **Prerequisites**
 
-Python 3.6.7
-hisat2 2.0.4
-stringtie 1.3.1c
-verse 0.1.5
+Python > 3.6.7
+hisat2 > 2.0.4
+StringTie > 1.3.1c
+verse > 0.1.5
+salmon > 
 htseq-count 0.6.1p1
 
 **Introduction**
@@ -24,24 +25,37 @@ htseq-count 0.6.1p1
 
 ## Install ##
 
-### 需要提前安装的软件包 ###
+### python and R packages ###
 
 #### R 包 ####
 argparser
-install.packages('argparser')
+ggplot2
+```
+R
+> install.packages('argparser')
+> install.packages('ggplot2')
+```
 
-#### pyper (可跳过) ####
+#### python 包 ####
+```
+# 可跳过 pyper
 pip install pyper
+pip install dypylib
+```
 
 ## 测试 ##
-$ cd RNAseqpipe/test
-$ pytest
+```
+cd RNAseqpipe
+pytest
+```
 
 ### 如果没有pytest命令，需要安装 pytest ###
 #### ubuntu ####
+```
 $ sudo apt install python-pytest
 #### conda ####
 $ conda install pytest
+```
 
 ## Usage ##
 
