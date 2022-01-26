@@ -22,6 +22,13 @@ htseq-count 0.6.1p1
 
 ...
 
+## Install ##
+
+### 需要提前安装的软件包 ###
+
+#### pyper (可跳过) ####
+pip install pyper
+
 ## Usage ##
 
 使用包括三方面内容：

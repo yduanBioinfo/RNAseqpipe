@@ -3,11 +3,13 @@
 #_version=0.0.2
 
 import sys, re 
-from pyper import *
 import numpy as np
 from collections import OrderedDict as Ordic
-
-from RNAseqpipe.progsuit import Prog_Rsp
+from RNAseqpipe.progsuit import Prog_Rsp, log
+try:
+    from pyper import *
+except:
+    log.warning("pyper has not installed. Install this package before running NOISeq analysis.")
 
 def is_number(mystr):
 
