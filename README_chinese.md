@@ -26,8 +26,22 @@ htseq-count 0.6.1p1
 
 ### 需要提前安装的软件包 ###
 
+#### R 包 ####
+argparser
+install.packages('argparser')
+
 #### pyper (可跳过) ####
 pip install pyper
+
+## 测试 ##
+$ cd RNAseqpipe/test
+$ pytest
+
+### 如果没有pytest命令，需要安装 pytest ###
+#### ubuntu ####
+$ sudo apt install python-pytest
+#### conda ####
+$ conda install pytest
 
 ## Usage ##
 

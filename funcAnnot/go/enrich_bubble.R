@@ -1,4 +1,4 @@
-#!/usr/bin/env Rscript-4.0.2
+#!/usr/bin/env Rscript
 
 Usage="cat genelist | goplot.R - outdir ifonlylist
     genelist	can be pure list of gene ID or NOISeq out file
