@@ -51,8 +51,8 @@ def test_hcv(tmpdir):
     subprocess.call(order)
     
     targets = ["all_flagstat.txt","merged_asm/merged.fa","merged_asm/merged.gtf","salmon/quant_merge.elen","salmon/quant_merge.numreads","salmon/quant_merge.len","salmon/quant_merge.tpm"]
-    targets = map(tmpdir.join, targets)
-    check_exists(str(targets),100)
+    targets = map(lambda x: str(tmpdir.join(x)), targets)
+    check_exists(targets,100)
     check_exists(glob.glob(str(tmpdir.join("merged*.count"))),100)
 
 #@pytest.mark.skip(reason="no way of currently testing this")
@@ -63,8 +63,8 @@ def test_hv(tmpdir):
     subprocess.call(order)
     
     targets = ["all_flagstat.txt"]
-    targets = map(tmpdir.join, targets)
-    check_exists(str(targets),100)
+    targets = map(lambda x: str(tmpdir.join(x)), targets)
+    check_exists(targets,100)
     check_exists(glob.glob(str(tmpdir.join("merged*.count"))),100)
 
 #@pytest.mark.skip(reason="no way of currently testing this")
@@ -75,6 +75,6 @@ def test_salmon(tmpdir):
     subprocess.call(order)
     
     targets = ["quant_merge.elen","quant_merge.numreads","quant_merge.len","quant_merge.tpm"]
-    targets = map(tmpdir.join, targets)
-    check_exists(str(targets),100)
+    targets = map(lambda x: str(tmpdir.join(x)), targets)
+    check_exists(targets,100)
 
