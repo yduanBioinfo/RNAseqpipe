@@ -25,6 +25,17 @@ samtools
 ...
 
 ## Install ##
+```
+pip install RNAseqpipe
+~/.local/config/RNAseqpipe_confs
+~/.local/config/RNAseqpipe_group_data
+```
+or
+```
+sudo pip install RNAseqpipe
+/usr/local/config/RNAseqpipe_confs
+/usr/local/config/RNAseqpipe_group_data
+```
 
 ### python and R packages ###
 

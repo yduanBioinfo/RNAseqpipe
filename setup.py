@@ -1,4 +1,5 @@
 import setuptools
+import glob
 
 with open('README.md', 'r') as fh:
     long_description = fh.read()
@@ -29,11 +30,13 @@ setuptools.setup(
         'Operating System :: OS Independent',
     ],
     data_files = [
-        ('',['VERSION'])
+        ('config/RNAseqpipe_confs', glob.glob('confs/*.conf')),
+        ('config/RNAseqpipe_group_data', glob.glob('group_data/*')),
     ],
     scripts=[
         'expression/count_merge.py',
         'get_gene_length.py',
+        'run_RNAseqpipe.py',
     ],
     python_requires='>=3.6',
 )
