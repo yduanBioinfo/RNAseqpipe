@@ -10,6 +10,7 @@ with open('VERSION', 'r') as fversion:
 with open('_version.py', 'wt') as fversion:
     fversion.write('__version__ = "'+version+'"')
 
+
 name = 'RNAseqpipe'
 setuptools.setup(
     name=name, # Replace with your own username
@@ -29,10 +30,9 @@ setuptools.setup(
         'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',
         'Operating System :: OS Independent',
     ],
-    data_files = [
-        ('config/RNAseqpipe_confs', glob.glob('confs/*.conf')),
-        ('config/RNAseqpipe_group_data', glob.glob('group_data/*')),
-    ],
+    package_data = {
+        name: ['confs/*.conf'] + ['group_data/*']
+    },
     scripts=[
         'expression/count_merge.py',
         'get_gene_length.py',
@@ -40,3 +40,5 @@ setuptools.setup(
     ],
     python_requires='>=3.6',
 )
+
+#('config/RNAseqpipe_group_data', glob.glob('group_data/*')),
