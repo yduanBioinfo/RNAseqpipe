@@ -31,7 +31,7 @@ setuptools.setup(
         'Operating System :: OS Independent',
     ],
     package_data = {
-        name: ['confs/*.conf'] + ['group_data/*']
+        name: ['confs/*'] + ['group_data/*']
     },
     scripts=[
         'expression/count_merge.py',
