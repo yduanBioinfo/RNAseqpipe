@@ -41,7 +41,8 @@ setuptools.setup(
         'get_gene_length.py',
         'run_RNAseqpipe.py',
         'install/post_RNAseqpipe_install',
-        'stat/merge_flagstat.py'
+        'stat/merge_flagstat.py',
+        'conv_clipping.sh'
     ],
     python_requires='>=3.6',
     include_package_data=True

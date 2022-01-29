@@ -14,9 +14,6 @@ align : align using hisat2 build
 balign : align using hisat2 build and if index is not exist, build it.
 '''
 
-CLIP_CONVERTER=os.path.join(os.path.dirname(__file__),"conv_clipping.sh")
-MERGE_FLAGE=os.path.join(os.path.dirname(__file__),"stat/merge_flagstat.py")
-
 def check_index(index):
 
     for i in range(1,9):
@@ -66,7 +63,7 @@ def pip_hisat(myconf,fq1,fq2,subpath,ali_path,ali_name,conv_clip=True,silence=Fa
     #convert soft-clipping that stringtie needed to hard-clipping which is supported by cufflinks.
     if conv_clip:
         n_conv = hst_out.rstrip(".sam")+"_conv.sam"
-        os.system(CLIP_CONVERTER+" %s %s"%(hst_out,n_conv))
+        os.system("conv_clipping.sh"+" %s %s"%(hst_out,n_conv))
         os.system("rm %s"%hst_out)#remove samfile1
         hst_out = n_conv
     
@@ -114,7 +111,7 @@ def pip_hisats(conf,fq1,fq2,subpath,ali_path,ali_name):
 
     # merge mapping rate
     with open(ali_path+"/all_flagstat.txt",'w') as output:
-        order = [MERGE_FLAGE]
+        order = ["merge_flagstat.py"]
         order.extend(result_f)
         subprocess.check_call(order,stdout=output)
     
