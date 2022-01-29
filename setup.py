@@ -31,15 +31,18 @@ setuptools.setup(
         'Operating System :: OS Independent',
     ],
     package_data = {
-        name: ['confs/*'] + ['group_data/*']
+        name: ['confs/*'] + ['group_data/*'] + 
+              glob.glob('test/**', recursive=True) + 
+              glob.glob('**/*.R', recursive=True) + 
+              glob.glob('**/*.sh', recursive=True)
     },
     scripts=[
         'expression/count_merge.py',
         'get_gene_length.py',
         'run_RNAseqpipe.py',
-        'install/post_RNAseqpipe_install'
+        'install/post_RNAseqpipe_install',
+        'stat/merge_flagstat.py'
     ],
     python_requires='>=3.6',
+    include_package_data=True
 )
-
-#('config/RNAseqpipe_group_data', glob.glob('group_data/*')),
