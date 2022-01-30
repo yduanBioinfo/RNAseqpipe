@@ -6,6 +6,7 @@ import sys, os
 import pkg_resources
 from RNAseqpipe.install.init_base_conf import fill_prog_path
 from RNAseqpipe.install.copy_conf import copy_static
+from RNAseqpipe.install.copy_test import copy_test_files
 
 def main(argv):
     import argparse
@@ -24,6 +25,7 @@ def main(argv):
 
     # Copy confs and groups to dest directory
     copy_static(args.outdir)
+    copy_test_files(args.outdir)
 
 if __name__ == '__main__':
 
