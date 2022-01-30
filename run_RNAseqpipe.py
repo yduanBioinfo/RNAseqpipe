@@ -9,6 +9,7 @@ from threading import Thread
 import subprocess
 import logging
 import argparse
+import pkg_resources
 
 from RNAseqpipe import hisat, cufflinks, NOISeq, htseq
 import RNAseqpipe.funcAnnot.b2gprog.GOannot as GOannot
@@ -21,9 +22,7 @@ from RNAseqpipe.get_gene_length import len_for_Rsp
 from RNAseqpipe.get_geneids import get_geneids
     
 logging.basicConfig()
-FILEPATH=os.path.realpath(__file__)
-FILEDIR=os.path.dirname(FILEPATH)
-BASE_CONF=FILEDIR+"/confs/base.conf"
+BASE_CONF=pkg_resources.resource_filename('RNAseqpipe', 'confs/base.conf')
 
 def add_arguments(parser):
     parser.add_argument('-c','--conf',help='configuration file',nargs='?',\
@@ -57,7 +56,7 @@ def main(argv):
         sub_main(argv[1:])
 
     if args.program == 'salmon':
-        from expression.salmon_quantify import main as sub_main
+        from RNAseqpipe.expression.salmon_quantify import main as sub_main
         sub_main(argv[1:])
         
 if __name__ == '__main__':
