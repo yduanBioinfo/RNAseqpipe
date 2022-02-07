@@ -39,20 +39,20 @@ def main(argv):
     args=parser.parse_args(argv[1:2])
 
     if args.program == 'cptDE':
-        from cptDE import main as sub_main
+        from RNAseqpipe.cptDE import main as sub_main
         sub_main(argv[1:])
 
     if args.program == 'seq2exp':
-        from seq2exp import main as sub_main
+        from RNAseqpipe.seq2exp import main as sub_main
         # should avoid position parser.
         sub_main(argv[1:])
         
     if args.program == 'func':
-        from func import main as sub_main
+        from RNAseqpipe.func import main as sub_main
         sub_main(argv[1:])
 
     if args.program == 'verse':
-        from verse import main as sub_main
+        from RNAseqpipe.verse import main as sub_main
         sub_main(argv[1:])
 
     if args.program == 'salmon':
