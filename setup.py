@@ -37,7 +37,7 @@ setuptools.setup(
               glob.glob('**/*.sh', recursive=True)
     },
     scripts=[
-        'expression/count_merge.py',
+        'expression/count_merge',
         'get_gene_length.py',
         'run_RNAseqpipe.py',
         'install/post_RNAseqpipe_install',
