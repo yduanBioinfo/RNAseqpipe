@@ -96,7 +96,7 @@ stringtie=
 #blast2go=
 #htseq_count=
 #htseq_qa=
-#count_merge=
+count_merge=
 #kaas_online=
 #get_length=
 </prog_path>
