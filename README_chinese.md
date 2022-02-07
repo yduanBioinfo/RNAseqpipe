@@ -4,27 +4,21 @@
 
 Copyright (C) 2019 You Duan
 
-general RNAseq process pipeline
+## Prerequisites ##
 
-**Contact**
-
-yduan94@ihb.ac.cn
-
-**Prerequisites**
-
-Python > 3.6.7
-hisat2 > 2.0.4
-StringTie > 1.3.1c
-verse > 0.1.5
-htseq-count 0.6.1p1
-salmon 
-samtools
+Python > 3.6.7  
+hisat2 > 2.0.4  
+StringTie > 1.3.1c  
+verse > 0.1.5  
+htseq-count 0.6.1p1  
+salmon  
+samtools  
 
 ### python and R packages ###
 
 #### R 包 ####
-argparser
-ggplot2
+argparser  
+ggplot2  
 ```
 R
 > install.packages('argparser')
@@ -40,8 +34,8 @@ pip install dypylib
 
 **Introduction**
 
-...
-
+本包是一个针对bulk-RNAseq数据分析的通用pipeline。整合了较为常用的Hisat-StringTie分析流程，可用于转录组表达量的定量工作和差异分析（该功能未完全实现）。  
+本包建立了配置文件系统、元数据文件和多种分析流程。可以较为灵活地选择软件和配置参数。
 ## Install ##
 ```
 # 使用pip进行安装
@@ -70,11 +64,67 @@ sh cmd
 ## Usage ##
 
 使用包括三方面内容：
-- 数据系统
-- 配置文件
+- 数据系统(group data)
+- 配置文件(Confs)
 - 流程
 
-### 数据系统 ###
+### 一个简单的例子 ###
+
+*输入测序数据，获得每个样本中每个基因的表达量*
+
+```
+run_RNAseqpipe.py seq2exp -c data/confs/gc_no_gff.conf,../../confs/hisat_stringtie_verse.conf -g data/gps/small_group_data.txt -o testout/hvc_count_out
+```
+
+*各参数的含义*
+
+-g 后面接[数据文件](#Group_data)  
+-c 后面接[配置文件](#Confs)  
+-o 后面接[输出文件夹](#Output)  
+seq2exp为获取表达量子程序，相应的还有其他功能的子程序。  
+
+```
+# 通过帮助查看所有的子程序
+$ run_RNAseqpipe.py --help
+usage: run_RNAseqpipe.py [-h] {all,cptDE,seq2exp,func,verse,salmon}
+
+RNA-seq analyse pipeline
+
+positional arguments:
+  {all,cptDE,seq2exp,func,verse,salmon}
+                        all for whole pip/ali for alignment/ass for assembly/ cptDE for compute different expression
+
+optional arguments:
+  -h, --help            show this help message and exit
+```
+
+```
+#通过帮助查看seq2exp子程序的全部参数
+$ run_RNAseqpipe.py seq2exp --help
+
+usage: run_RNAseqpipe.py [-h] [-1 [FQ1 [FQ1 ...]]] [-2 [FQ2 [FQ2 ...]]] [-c [CONF]] [-g [GROUP_DATA]] [-v] [-q] [-o [OUTPATH]]
+
+RNA-seq seq2exp program
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -1 [FQ1 [FQ1 ...]], --fq1 [FQ1 [FQ1 ...]]
+                        fq_1
+  -2 [FQ2 [FQ2 ...]], --fq2 [FQ2 [FQ2 ...]]
+                        fq_2
+  -c [CONF], --conf [CONF]
+                        configuration file
+  -g [GROUP_DATA], --group_data [GROUP_DATA]
+                        group_data file. conflict with -1 -2
+  -v, --verbose         Out put all running information. Typically used in debug.
+  -q, --quite           Running quitely.
+  -o [OUTPATH], --outpath [OUTPATH]
+                        outpath
+
+```
+
+### Group_data ###
+*数据文件系统*  
 以配置文件的方式接收输入文件，这样做的好处首先是可以更好记录运行输入文件，其次可以自定义输出文件的名字，更为重要的是，其可以输入数据相关的表型值，可用于差异分析（虽然有设计，但未在实际的流程中应用）。
 定义数据的配置文件可以在"group_data"文件夹中找到。
 以文件 **group_data/group_data.txt** 为例
@@ -105,11 +155,12 @@ sh cmd
 
 group_data.txt使用xml格式，分为两个部分，数据（dataset）和分组（GROUP）。
 **dataset**标签内定义了测序数据的基本属性和位置信息。
-每一行位置信息可以包含：数据的标签，reads1位置，[reads2位置]（单端数据没有reads2）
+每一行从左至右为：数据的标签（样本名字），reads1文件位置，[reads2文件位置]（单端数据没有reads2）
 
 **GROUP**标签定义了数据的分组信息，甚至可以包含多列的表型信息，是差异分析中需要使用到的信息。
 
-### 配置文件系统 ###
+### Confs ###
+*配置文件系统*  
 配置文件里面包含运行软件的路径（不提供具体路径时，使用环境变量中的软件），具体参数，以及部分必须文件的文件路径（例如基因组文件以及基因组注释文件gff）。
 配置文件放在**confs**文件夹中。
 以confs/gc.conf（用于草鱼的转录组分析配置文件）为例：
@@ -144,6 +195,7 @@ group_data.txt使用xml格式，分为两个部分，数据（dataset）和分�
 
 ### 流程 ###
 
+一个子程序可以包括多种流程。如seq2exp程序中，可以选择用StringTie作为组装软件（hisat_stringtie_verse），也可以采用cufflinks作为组装软件（hisat_cuff_verse）。  
 在hisat_stringtie_verse.conf 文件中<all> 标签下pipe参数的值为hsv，代表了使用hisat2 + stringtie + verse 的分析流程。这样的预定义流程包括如下：
 - hisat_stringtie_verse
 - hisat_cuff_verse
@@ -161,9 +213,14 @@ group_data.txt使用xml格式，分为两个部分，数据（dataset）和分�
     pipe=hsv
     </all>
 
+## Output ##
+*结果文件*
 
 ## to-do ##
 
-
 repair logging from subprocess.communicate().
 
+**Contact**
+
+yduan94@ihb.ac.cn  
+duanyou@outlook.com  
