@@ -20,23 +20,6 @@ htseq-count 0.6.1p1
 salmon 
 samtools
 
-**Introduction**
-
-...
-
-## Install ##
-```
-pip install RNAseqpipe
-~/.local/config/RNAseqpipe_confs
-~/.local/config/RNAseqpipe_group_data
-```
-or
-```
-sudo pip install RNAseqpipe
-/usr/local/config/RNAseqpipe_confs
-/usr/local/config/RNAseqpipe_group_data
-```
-
 ### python and R packages ###
 
 #### R 包 ####
@@ -55,19 +38,34 @@ pip install pyper
 pip install dypylib
 ```
 
-## 测试 ##
+**Introduction**
+
+...
+
+## Install ##
 ```
-cd RNAseqpipe
-pytest
+# 使用pip进行安装
+pip install RNAseqpipe
+# 在RNAseqpipe_data目录下生成配置文件和测试文件（RNAseqpipe_data
+# 可换成任意文件名）。
+post_RNAseqpipe_install -o RNAseqpipe_data
+# 运行测试
+cd RNAseqpipe_data/test/test_bash/
+sh cmd
+```
+or
+```
+# 使用超级用户权限进行配置
+# 使用pip进行安装
+sudo pip install RNAseqpipe
+# 在RNAseqpipe_data目录下生成配置文件和测试文件（RNAseqpipe_data
+# 可换成任意文件名）。
+sudo post_RNAseqpipe_install -o RNAseqpipe_data
+# 运行测试
+cd RNAseqpipe_data/test/test_bash/
+sh cmd
 ```
 
-### 如果没有pytest命令，需要安装 pytest ###
-#### ubuntu ####
-```
-$ sudo apt install python-pytest
-#### conda ####
-$ conda install pytest
-```
 
 ## Usage ##
 
