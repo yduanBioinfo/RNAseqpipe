@@ -1,10 +1,10 @@
 <dataset1>
 filetype=fastq
 library=PE#SE
-TEST1	./test/RNAseqpip_data/data/fqs/test1_1.fq	./test/RNAseqpip_data/data/fqs/test1_2.fq
-TEST2	./test/RNAseqpip_data/data/fqs/test2_1.fq	./test/RNAseqpip_data/data/fqs/test2_2.fq
-TEST3	./test/RNAseqpip_data/data/fqs/test3_1.fq	./test/RNAseqpip_data/data/fqs/test3_2.fq
-TEST4	./test/RNAseqpip_data/data/fqs/test3_1.fq	./test/RNAseqpip_data/data/fqs/test3_2.fq
+TEST1	/home/yduan/scripts/python/projects/RNAseqpipe/test/RNAseqpip_data/data/fqs/test1_1.fq	/home/yduan/scripts/python/projects/RNAseqpipe/test/RNAseqpip_data/data/fqs/test1_2.fq
+TEST2	/home/yduan/scripts/python/projects/RNAseqpipe/test/RNAseqpip_data/data/fqs/test2_1.fq	/home/yduan/scripts/python/projects/RNAseqpipe/test/RNAseqpip_data/data/fqs/test2_2.fq
+TEST3	/home/yduan/scripts/python/projects/RNAseqpipe/test/RNAseqpip_data/data/fqs/test3_1.fq	/home/yduan/scripts/python/projects/RNAseqpipe/test/RNAseqpip_data/data/fqs/test3_2.fq
+TEST4	/home/yduan/scripts/python/projects/RNAseqpipe/test/RNAseqpip_data/data/fqs/test3_1.fq	/home/yduan/scripts/python/projects/RNAseqpipe/test/RNAseqpip_data/data/fqs/test3_2.fq
 </dataset1>
 
 <dataset2>

@@ -15,7 +15,7 @@ def copy_test_files(dest):
     shutil.copytree(data_dir, os.path.join(dest, out_test_dir_name, 'test_bash', 'data'))
     
     # Copy scripts
-    scripts = ['cmd', 'init_test_data.sh', 'run_test.sh']
+    scripts = ['cmd', 'init_test_data.sh', 'run_test.sh', 'init_test_conf.sh']
     script_dest = os.path.join(dest, out_test_dir_name, 'test_bash')
     for i in scripts:
         _copy_file(i, script_dest)
