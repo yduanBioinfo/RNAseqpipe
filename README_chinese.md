@@ -253,6 +253,9 @@ run_RNAseqpipe.py seq2exp -c ${cf_root}/dUTP.conf,${conf_gc_no_gff},${cf_root}/h
 ├── TEST4   (样本TEST4的中间文件)
 ```
 ### File format ###
+***all_flagstat.txt***
+
+该文件是依赖`samtools flagstat`命令创建的，详细说明可参考[对应文档](http://www.htslib.org/doc/samtools-flagstat.html)
 
 ## to-do ##
 
