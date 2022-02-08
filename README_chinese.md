@@ -9,7 +9,7 @@ Copyright (C) 2019 You Duan
 Python > 3.6.7  
 hisat2 > 2.0.4  
 StringTie > 1.3.1c  
-verse > 0.1.5  
+[verse](https://kim.bio.upenn.edu/software/verse.shtml) > 0.1.5  
 htseq-count 0.6.1p1  
 salmon  
 samtools  
@@ -32,9 +32,9 @@ pip install pyper
 pip install dypylib
 ```
 
-**Introduction**
+## Introduction ##
 
-本包是一个针对bulk-RNAseq数据分析的通用pipeline。整合了较为常用的Hisat-StringTie分析流程，可用于转录组表达量的定量工作和差异分析（该功能未完全实现）。  
+本包是一个针对bulk-RNAseq数据分析的通用pipeline。整合了较为常用的Hisat2-StringTie分析流程，可用于转录组表达量的定量工作和差异分析（该功能未完全实现）。  
 本包建立了配置文件系统、元数据文件和多种分析流程。可以较为灵活地选择软件和配置参数。
 ## Install ##
 ```
@@ -256,6 +256,14 @@ run_RNAseqpipe.py seq2exp -c ${cf_root}/dUTP.conf,${conf_gc_no_gff},${cf_root}/h
 ***all_flagstat.txt***
 
 该文件是依赖`samtools flagstat`命令创建的，详细说明可参考[对应文档](http://www.htslib.org/doc/samtools-flagstat.html)
+
+***merged.count 文件***
+
+该文件由verse软件或者htseq-count软件生成。
+
+***salmon 文件夹***
+
+该文件夹由salmon软件生成，详细说明可参考[对应文档](https://salmon.readthedocs.io/en/latest/file_formats.html#fileformats)
 
 ## to-do ##
 
