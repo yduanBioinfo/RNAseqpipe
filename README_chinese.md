@@ -225,6 +225,35 @@ run_RNAseqpipe.py seq2exp -c ${cf_root}/dUTP.conf,${conf_gc_no_gff},${cf_root}/h
 ## Output ##
 *结果文件*
 
+### 目录结构 ###
+```
+├── all_flagstat.txt    （比对情况统计）
+├── merged22_02_07_14.count （比对计数）
+├── merged_asm  （组装结果文件夹）
+│   ├── merged.fa  （fasta文件，组装结果或者是输入文件，取决于具体流程） 
+│   ├── merged.gtf  （gtf文件，组装结果或者是输入文件，取决于具体流程）
+│   └── salmon_index    （基于merged.fa的salmon索引文件）
+├── salmon  （salmon表达量定量结果）
+│   ├── quant_merge.elen （每个转录本有效长度）
+│   ├── quant_merge.len （每个转录本长度）
+│   ├── quant_merge.numreads    （每个转录本的表达量计数）
+│   ├── quant_merge.tpm （每个转录本的TPM表达量）
+│   ├── TEST1   （salmon计数的中间文件）
+│   ├── TEST2   （salmon计数的中间文件）   
+│   ├── TEST3   （salmon计数的中间文件）
+│   └── TEST4   （salmon计数的中间文件）
+├── TEST1   (样本TEST1的中间文件)
+│   ├── flagstat.txt    （比对统计信息）
+│   ├── sort.bam    （比对文件，已经排序）
+│   ├── sort.exon.summary.txt   （计数信息）
+│   ├── sort.exon.txt   （计数信息）
+│   └── transcripts.gtf （组装文件）
+├── TEST2   (样本TEST2的中间文件)
+├── TEST3   (样本TEST3的中间文件)
+├── TEST4   (样本TEST4的中间文件)
+```
+### File format ###
+
 ## to-do ##
 
 repair logging from subprocess.communicate().
