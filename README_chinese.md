@@ -1,3 +1,7 @@
+---
+mainfont: Noto Sans Mono CJK TC
+---
+
 # RNAseqpipe #
 
 **A pipeline of RNAseq analysis**
