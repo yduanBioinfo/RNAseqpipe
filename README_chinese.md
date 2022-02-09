@@ -271,6 +271,7 @@ run_RNAseqpipe.py seq2exp -c ${cf_root}/dUTP.conf,${conf_gc_no_gff},${cf_root}/h
 
 ## to-do ##
 
+fix bug in muilt-process setting.
 repair logging from subprocess.communicate().
 
 **Contact**
