@@ -208,6 +208,35 @@ run_RNAseqpipe.py seq2exp -c ${cf_root}/dUTP.conf,${conf_gc_no_gff},${cf_root}/h
 
 ### 流程 ###
 
+RNAseqpipe目前包含6个主要的子程序（流程），分别是：all, cptDE, seq2exp, func, verse, salmon。其中最为常用的是seq2exp流程。
+
+#### all ####
+
+该流程为全部分析过程，包括数据比对，组装，计数，差异分析，KEGG和GO富集分析。
+但该流程并未完工。
+
+#### cptDE ####
+
+该流程为差异分析。
+该流程并未完工。
+
+#### func ####
+
+该流程为功能注释与富集分析。
+该流程并未完工。
+
+#### verse ####
+
+该流程为使用verse计数
+
+#### salmon ####
+
+该流程为使用salmon计数
+
+#### seq2exp ####
+
+该流程为从输入fq数据到完成表达量定量的过程。该流程包含几种途径：
+
 一个子程序可以包括多种流程。如seq2exp程序中，可以选择用StringTie作为组装软件（hisat_stringtie_verse），也可以采用cufflinks作为组装软件（hisat_cuff_verse）。  
 在hisat_stringtie_verse.conf 文件中<all> 标签下pipe参数的值为hsv，代表了使用hisat2 + stringtie + verse 的分析流程。这样的预定义流程包括如下：
 - hisat_stringtie_verse
