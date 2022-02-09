@@ -237,13 +237,14 @@ RNAseqpipe目前包含6个主要的子程序（流程），分别是：all, cptD
 
 该流程为从输入fq数据到完成表达量定量的过程。该流程包含几种途径：
 
-一个子程序可以包括多种流程。如seq2exp程序中，可以选择用StringTie作为组装软件（hisat_stringtie_verse），也可以采用cufflinks作为组装软件（hisat_cuff_verse）。  
-在hisat_stringtie_verse.conf 文件中<all> 标签下pipe参数的值为hsv，代表了使用hisat2 + stringtie + verse 的分析流程。这样的预定义流程包括如下：
-- hisat_stringtie_verse
-- hisat_cuff_verse
-- hisat_htseq_count （不组装转录本，直接计数）
-- hisat_verse_count （不组装转录本，直接计数）
+- hisat_stringtie_verse （hsv）
+- hisat_cuff_verse  (hcv)
+- hisat_htseq_count （ht,不组装转录本，直接计数）
+- hisat_verse_count （hv,不组装转录本，直接计数）
 
+每种途径包含了不同的软件组合，可以选择用StringTie作为组装软件（hisat_stringtie_verse），也可以采用cufflinks作为组装软件（hisat_cuff_verse）。  
+在conf 文件中<all> 标签下pipe参数可以选择具体的途径（软件组合）。如在hisat_stringtie_verse.conf 文件中<all> 标签下pipe参数的值为hsv，代表了使用hisat2 + stringtie + verse 的分析流程。这样的预定义流程包括如下：  
+使用hisat2做比对，使用stringtie组装转录本，使用verse和salmon进行表达量计数。
 
 **hisat_stringtie_verse.conf** 文件
 
