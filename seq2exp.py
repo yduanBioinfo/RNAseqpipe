@@ -130,13 +130,19 @@ def hisat_verse(myconf,myfq1,myfq2,fqnames,ali_path,ali_name,mygroup_data):
     log.debug("Running hisat_verse")
     ali_ress,sort_ress = hisat.pip_hisats(myconf,myfq1,myfq2,fqnames,ali_path,ali_name)
     #Target gff
-    merged = myconf["all"].get("gtf")
-    if merged is None:
+    vmerged = myconf["all"].get("gtf")
+    if vmerged is None:
         log.warning("Verse only support gtf, which is not provied.\nTry with gff.")
-        merged = myconf["all"].get("gff")
+        vmerged = myconf["all"].get("gff")
 
-    vscount = verse.versepip(myconf,sort_ress,ali_path,merged)
-    salmonpip(myconf,myfq1,myfq2,fqnames,ali_path+"/salmon",merged)
+    smerged = myconf["all"].get("gff")
+    if smerged is None:
+        log.warning("Gffread are used in salmon. Gffread work better on gff,\
+                which is not provied.\nTry with gtf.")
+        smerged = myconf["all"].get("gtf")
+
+    vscount = verse.versepip(myconf,sort_ress,ali_path,vmerged)
+    salmonpip(myconf,myfq1,myfq2,fqnames,ali_path+"/salmon",smerged)
     return vscount, merged
 
 def count2exp(myconf,count,outdir=None):
