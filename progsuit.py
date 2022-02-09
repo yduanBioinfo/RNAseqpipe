@@ -375,8 +375,9 @@ class Prog_Rsp(Pconf,Prog):
         
     def getOrder(self,order,myPconf):
         #if order in myPconf,return value else return order
+        # Make sure given path exist.
         
-        if order in myPconf:
+        if order in myPconf and os.path.exists(myPconf[order]):
             return myPconf[order]
         return order
         

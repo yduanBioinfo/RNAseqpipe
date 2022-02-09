@@ -198,7 +198,7 @@ genome=/home/yduan/scripts/python/projects/RNAseqpipe/test/RNAseqpip_data/data/t
 
     ${RNApipe} seq2exp -c ${conf0}","${conf1}","${conf} -g ${group_data} -o ${outdir}
     
-理论上，RNAseqpipe可以接收任意多的配置文件，在本例中，其中conf的优先级最高，其次conf1，再其次conf0。意味着，如果三个文件中同时定义了同一参数，那么最终使用的参数为优先级最高的文件中定义的参数。
+理论上，RNAseqpipe可以接收任意多的配置文件，在本例中，其中conf的优先级最高，其次conf1，再其次conf0。意味着，如果三个文件中同时定义了同一参数，那么最终使用的参数为优先级最高的文件中定义的参数。  
 多参数系统事实上是为了适应多变的RNAseq测序手段和较为固定的策略的妥协方案。不同的转录组测序对应了不同的软件运行参数，因此参数往往是多变的；而往往有些转录组测序方案较为固定，如dUTP测序，同一实验室往往只研究少数的几个物种，例如我们实验室更多研究草鱼，在这些策略下，参数又是相对固定的。  
 将conf文件具体化后，我们可将代码改写：
 ```
