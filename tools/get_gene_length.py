@@ -2,6 +2,7 @@
 
 #from RNAseqpipe.gtf_cuff_table import Gff
 from collections import OrderedDict as Ordic
+from dypylib.bio.seq.base import GtfDict
 from dypylib.bio.seq.base import Gff
 
 ''' Input should be GTF.
@@ -112,6 +113,17 @@ def len_for_Rsp(gff,t_attr='gene_id'):
     #get length for RNAseqpip
     mygff = Gff_l(gff)
     return mygff.get_length_array(t_attr)
+
+def get_represent_tx(gene):
+    """ Get representative transcript of one gene, the longest one.
+        This function should be incorporated into dypylib.
+    """
+    max_len = 0
+    for tx in gene.values():
+        if len(tx) > max_len:
+            rep_tx = tx
+            max_len = len(tx)
+    return rep_tx
     
 def main(argv):
 
@@ -120,13 +132,23 @@ def main(argv):
     parser = argparse.ArgumentParser(description='Get sequence length of each gene/transcript')
     parser.add_argument('gff',help='GTF file (GFF file is not supported)',nargs='?',type=argparse.FileType('r'))
     parser.add_argument('-t', '--t_attr', help='id attribute name',nargs='?',default='gene_id')
+    parser.add_argument('--transcripts', help='Get length of transcript (default: gene)', action='store_true')
     parser.add_argument('-o','--outfile',nargs='?',help='outfile default: stdout',\
     default=sys.stdout,type=argparse.FileType('w'))
     args = parser.parse_args(argv)
 
     #mygff = Gff_l(args.gff)
     mygff = Gff_l(args.gff)
-    write_length_f(mygff.attr_lener(args.t_attr),args.outfile)
+    #write_length_f(mygff.attr_lener(args.t_attr),args.outfile)
+    myGTF = GtfDict(args.gff)
+    if args.transcripts:
+        dict_txs = myGTF.get_TxDict()
+        for tx in dict_txs.values():
+            args.outfile.write("{}\t{}\n".format(tx.ID,len(tx)))
+    else:
+        dict_genes = myGTF.get_GeneDict()
+        for gene in dict_genes.values():
+            args.outfile.write("{}\t{}\n".format(gene.ID,len(get_represent_tx(gene))))
         
 if __name__ == '__main__':
 

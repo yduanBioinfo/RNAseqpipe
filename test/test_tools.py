@@ -19,3 +19,9 @@ def test_get_gene_length_hs(tmpdir):
     order = "./get_gene_length.py {} -o {}".format(test_input_hs_gtf, outfile).split()
     subprocess.call(order)
     check_exist(str(outfile),100)
+
+def test_get_gene_length_hs_tx(tmpdir):
+    outfile = tmpdir.join("test.txt")
+    order = "./get_gene_length.py {} -o {} --transcripts".format(test_input_hs_gtf, outfile).split()
+    subprocess.call(order)
+    check_exist(str(outfile),100)
