@@ -102,15 +102,38 @@ class Gff_l(Gff):
         for key, value in self.attr_lener(t_attr):
             outlst.append((key,value))
         return outlst
-        
-def write_length_f(length_dic,outfile,sep='\t'):
-    #length_dic: is actully a iterator of (id, length) pair.
 
-    for id, length in length_dic:
-        outfile.write(id+sep+str(length)+"\n")
+def get_length_array(myGTF, transcripts=False):
+    """ Get list of [Gene/Tx ID, length]
+    myGTF is GtfDict 
+    transcripts: True, get Transcripts information, otherwise Gene.
+    """
+    outdata = []
+    if transcripts:
+        dict_txs = myGTF.get_TxDict()
+        for tx in dict_txs.values():
+            outdata.append([tx.ID,len(tx)])
+    else:
+        dict_genes = myGTF.get_GeneDict()
+        for gene in dict_genes.values():
+            outdata.append([gene.ID,len(get_represent_tx(gene))])
+    return outdata
+
+def _get_length_array(gff, t_attr):
+    """ Enable len_for_Rsp function run with new engine """
+    
+    transcripts = False
+    if t_attr in ("tx_id", "transcript_id"):
+        transcripts = True
+    return get_length_array(gff, transcripts)
 
 def len_for_Rsp(gff,t_attr='gene_id'):
-    #get length for RNAseqpip
+    """ get length for RNAseqpip"""
+    myGTF = GtfDict(args.gff)
+    return _get_length_array(myGTF, t_attr)
+
+def len_for_Rsp_old(gff,t_attr='gene_id'):
+    #get length for RNAseqpip abord
     mygff = Gff_l(gff)
     return mygff.get_length_array(t_attr)
 
@@ -131,24 +154,15 @@ def main(argv):
     
     parser = argparse.ArgumentParser(description='Get sequence length of each gene/transcript')
     parser.add_argument('gff',help='GTF file (GFF file is not supported)',nargs='?',type=argparse.FileType('r'))
-    parser.add_argument('-t', '--t_attr', help='id attribute name',nargs='?',default='gene_id')
+    parser.add_argument('-t', '--t_attr', help='id attribute name(Now is not used)',nargs='?',default='gene_id')
     parser.add_argument('--transcripts', help='Get length of transcript (default: gene)', action='store_true')
     parser.add_argument('-o','--outfile',nargs='?',help='outfile default: stdout',\
     default=sys.stdout,type=argparse.FileType('w'))
     args = parser.parse_args(argv)
 
-    #mygff = Gff_l(args.gff)
-    mygff = Gff_l(args.gff)
-    #write_length_f(mygff.attr_lener(args.t_attr),args.outfile)
     myGTF = GtfDict(args.gff)
-    if args.transcripts:
-        dict_txs = myGTF.get_TxDict()
-        for tx in dict_txs.values():
-            args.outfile.write("{}\t{}\n".format(tx.ID,len(tx)))
-    else:
-        dict_genes = myGTF.get_GeneDict()
-        for gene in dict_genes.values():
-            args.outfile.write("{}\t{}\n".format(gene.ID,len(get_represent_tx(gene))))
+    for ID, length in get_length_array(myGTF, args.transcripts):
+        args.outfile.write("{}\t{}\n".format(ID, length))
         
 if __name__ == '__main__':
 
