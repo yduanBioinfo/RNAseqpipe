@@ -4,8 +4,7 @@
 from collections import OrderedDict as Ordic
 from dypylib.bio.seq.base import Gff
 
-'''
-input gtf should only contain exon feature.
+''' Input should be GTF.
 '''
 
 def make_feature_dict(mygff,key="transcript_id"):
@@ -31,8 +30,8 @@ def stat_db(mydb):
 	return data,exon_length
 
 class Gff_l(Gff):
-
-    '''
+    ''' Class of collections of methods for getting length genome features in GFF/GTF file.
+    Input should be a file.
     add get length function to Gff class 
     
     def attr_pos(self,t_attr='gene_id'):
@@ -118,8 +117,8 @@ def main(argv):
 
     import argparse, sys
     
-    parser = argparse.ArgumentParser(description='merge htseq-count out file')
-    parser.add_argument('gff',help='gff files',nargs='?',type=argparse.FileType('r'))
+    parser = argparse.ArgumentParser(description='Get sequence length of each gene/transcript')
+    parser.add_argument('gff',help='GTF file (GFF file is not supported)',nargs='?',type=argparse.FileType('r'))
     parser.add_argument('-t', '--t_attr', help='id attribute name',nargs='?',default='gene_id')
     parser.add_argument('-o','--outfile',nargs='?',help='outfile default: stdout',\
     default=sys.stdout,type=argparse.FileType('w'))
