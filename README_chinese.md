@@ -64,7 +64,6 @@ cd RNAseqpipe_data/test/test_bash/
 sh cmd
 ```
 
-
 ## Usage ##
 
 使用包括三方面内容：
@@ -231,7 +230,28 @@ RNAseqpipe目前包含6个主要的子程序（流程），分别是：all, cptD
 
 #### salmon ####
 
-该流程为使用salmon计数
+流程说明：该流程为使用salmon计数
+
+目的: 获取转录本层面表达量。
+
+输入文件: GTF/GFF文件、基因组文件和group_data文件。
+
+计算过程：获取转录组序列文件（fasta）并建立salmon软件索引，并对每个转录本的表达量进行计算。
+
+输出文件：
+
+```
+"quant_merge.elen",
+"quant_merge.numreads",
+"quant_merge.len",
+"quant_merge.tpm"
+```
+
+参考命令：
+
+```
+run_RNAseqpipe.py salmon --gtf input.gtf -g group_data.txt -o outdir --genome input_genome.fasta
+```
 
 #### seq2exp ####
 
@@ -242,9 +262,18 @@ RNAseqpipe目前包含6个主要的子程序（流程），分别是：all, cptD
 - hisat_htseq_count （ht,不组装转录本，直接计数）
 - hisat_verse_count （hv,不组装转录本，直接计数）
 
-每种途径包含了不同的软件组合，可以选择用StringTie作为组装软件（hisat_stringtie_verse），也可以采用cufflinks作为组装软件（hisat_cuff_verse）。  
-在conf 文件中<all> 标签下pipe参数可以选择具体的途径（软件组合）。如在hisat_stringtie_verse.conf 文件中<all> 标签下pipe参数的值为hsv，代表了使用hisat2 + stringtie + verse 的分析流程。这样的预定义流程包括如下：  
-使用hisat2做比对，使用stringtie组装转录本，使用verse和salmon进行表达量计数。
+每种途径包含了不同的软件组合。
+
+```
+hsv：hisat2比对 + StringTie组装 + verse计数 + salmon计数；
+hch：hisat2比对 + cufflinks组装 + htseq-count计数；
+hcv：hisat2比对 + cufflinks组装 + verse计数；
+hsh：hisat2比对 + StringTie组装 + htseq-count计数；
+hh：hisat2比对 + htseq-count；
+hv：hisat2比对 + verse计数 + salmon计数 （同上述Salmon流程）。
+```
+
+在conf 文件中<all> 标签下pipe参数可以选择具体的途径（软件组合）。如在hisat_stringtie_verse.conf 文件中<all> 标签下pipe参数的值为hsv，代表了使用hisat2 + stringtie + verse 的分析流程。 
 
 **hisat_stringtie_verse.conf** 文件
 
@@ -255,6 +284,20 @@ RNAseqpipe目前包含6个主要的子程序（流程），分别是：all, cptD
     # Strand specific library, dUTP methods.
     pipe=hsv
     </all>
+
+## Typical usage ##
+
+### 1. 从序列到表达量，发现新转录本
+
+```
+./run_RNAseqpipe.py seq2exp -c conf_dir/dUTP.conf,conf_dir/test_gc_no_gff.conf,conf_dir/hisat_stringtie_verse.conf -g group_data.txt -o outdir
+```
+
+### 2. 从序列到表达量，不发现新转录本
+
+```
+run_RNAseqpipe.py salmon --gtf input.gtf -g group_data.txt -o outdir --genome input_genome.fasta
+```
 
 ## Output ##
 *结果文件*
