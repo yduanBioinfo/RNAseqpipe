@@ -8,7 +8,7 @@ general RNAseq process pipeline
 
 **Contact**
 
-yduan94@ihb.ac.cn
+duanyou@outlook.com
 
 **Prerequisites**
 

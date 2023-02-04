@@ -349,5 +349,4 @@ repair logging from subprocess.communicate().
 
 **Contact**
 
-yduan94@ihb.ac.cn  
 duanyou@outlook.com  
