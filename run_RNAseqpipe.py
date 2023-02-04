@@ -35,8 +35,12 @@ def add_arguments(parser):
 def main(argv):
     parser = argparse.ArgumentParser(description='RNA-seq analyse pipeline')
     parser.add_argument('program',help='all for whole pip/ali for alignment/ass for assembly/\
-    cptDE for compute different expression',choices=['all','cptDE','seq2exp','func','verse','salmon'])
+    cptDE for compute different expression',choices=['all','QC','cptDE','seq2exp','func','verse','salmon'])
     args=parser.parse_args(argv[1:2])
+
+    if args.program == 'QC':
+        from RNAseqpipe.QC.qc_rna_fq import main as sub_main
+        sub_main(argv[1:])
 
     if args.program == 'cptDE':
         from RNAseqpipe.cptDE import main as sub_main
