@@ -105,7 +105,7 @@ def main(argv):
 
     parser = argparse.ArgumentParser(description="Quality control for illumina fastq files.")
     parser.add_argument('infile', nargs='+', help="input fastq files")
-    parser.add_argument('-c', '--conf', help="conf file like confs/QC.conf")
+    parser.add_argument('-c', '--conf', help="Please set QC conf. Example: confs/QC.conf")
     parser.add_argument('-t', '--threading', type=int, help="threading used for computing")
     parser.add_argument('-o','--outdir',required=True,help="output directory")
     args = parser.parse_args(argv[1:])
