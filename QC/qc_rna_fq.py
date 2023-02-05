@@ -8,11 +8,6 @@ from multiprocessing import Pool
 
 from RNAseqpipe.progsuit import Configuration, Prog_Rsp, log
 
-def getOrder(order,myPconf):
-    if order in myPconf:
-        return myPconf[order]
-    return order
-
 def split_fqs(input_fqs):
     """[fq1_1, fq1_2, fq2_1, fq2_2, fq3_1, fq3_2] -->
     [fq1_1,fq2_1, fq3_1], [fq1_2, fq2_2, fq3_2]"""
@@ -24,11 +19,23 @@ def split_fqs(input_fqs):
     return fq1, fq2
 
 def fastqc_one_sample(myconf, fq, outdir):
-    fastqc_order = r'{} -o {} {}'.format(
-            getOrder("fastqc",myconf['prog_path']),
-            outdir, 
-            fq)
-    os.system(fastqc_order)
+    progname = 'fastqc'
+    order1 = Ordic([('-o', outdir), (fq, '')])
+    order2 = {}
+    
+    prog = Prog_Rsp(myconf, progname, order1, order2)
+    prog.run()
+
+def run_multiQC(myconf, fdir, sdir):
+    '''sdir: summary directory,
+    fdir: fastqc results directory.
+    '''
+    progname = 'multiqc'
+    order1 = Ordic([('-o', sdir), (fdir, '')])
+    order2 = {}
+    
+    prog = Prog_Rsp(myconf, progname, order1, order2)
+    prog.run()
 
 def fastqc_multqc(myconf, fqs, outdir, maxp=20): 
     """Run fastqc and multiQC"""
@@ -39,11 +46,8 @@ def fastqc_multqc(myconf, fqs, outdir, maxp=20):
     os.makedirs(sdir, exist_ok=True)
     pool = Pool(maxp)
     pool.starmap(fastqc_one_sample, zip(itertools.repeat(myconf), fqs, itertools.repeat(fdir)))
-    multiqc_order = r'{} -o {} {}'.format(
-            getOrder("multiqc",myconf['prog_path']),
-            sdir,
-            fdir)
-    os.system(multiqc_order)
+    # Run multiQC
+    run_multiQC(myconf, fdir, sdir)
 
 def trim_one_sample(myconf, fq1, fq2, outdir):
     # Set cores to 1
@@ -54,23 +58,24 @@ def trim_one_sample(myconf, fq1, fq2, outdir):
     os.makedirs(filt_dir, exist_ok=True)
     base1 = os.path.basename(fq1)
     base2 = os.path.basename(fq2)
-    illqc_order = r'{} -pe {} {} {} A -c {} -o {}'.format(
-            getOrder("IlluQC_PRLL.pl",myconf['prog_path']),
-            fq1,
-            fq2,
-            myconf['all'].get('adaptor'),
-            cores,
-            filt_dir)
-    os.system(illqc_order)
 
+    progname = 'IlluQC_PRLL.pl'
+    order1 = Ordic([('-pe', fq1), (fq2, myconf['all'].get('adaptor')), 
+        ('A', ''), ('-c', cores), ('-o', filt_dir)])
+    order2 = {}
+    
+    prog = Prog_Rsp(myconf, progname, order1, order2)
+    prog.run()
+    
     # AmbiguityFiltering
     qc1 = os.path.join(filt_dir, base1+'_filtered')
     qc2 = os.path.join(filt_dir, base2+'_filtered')
-    ambigu_order = r'{} -i {} -irev {} -t3 -t5'.format(
-            getOrder("AmbiguityFiltering.pl",myconf['prog_path']),
-            qc1,
-            qc2)
-    os.system(ambigu_order)
+    progname = 'AmbiguityFiltering.pl'
+    order1 = Ordic([('-i', qc1), ('-irev', qc2), ('-t3', '-t5')])
+    order2 = {}
+    
+    prog = Prog_Rsp(myconf, progname, order1, order2)
+    prog.run()
 
     # Mv results to clean_dir
     # And clean directory
