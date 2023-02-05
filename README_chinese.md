@@ -17,6 +17,11 @@ StringTie > 1.3.1c
 htseq-count 0.6.1p1  
 salmon  
 samtools  
+### QC mode ###
+fastqc
+multiQC
+IllQC
+NGSQCToolkit = 2.3
 
 ### python and R packages ###
 
@@ -213,6 +218,10 @@ RNAseqpipe目前包含6个主要的子程序（流程），分别是：all, cptD
 
 该流程为全部分析过程，包括数据比对，组装，计数，差异分析，KEGG和GO富集分析。
 但该流程并未完工。
+
+#### QC ####
+
+该流程用于一般的RNA序列质量控制，目前主要支持Illumina的数据。流程包括用fastqc/multiQC获取数据质量报告，使用NGSQCToolkit进行低质量序列的去除。
 
 #### cptDE ####
 
