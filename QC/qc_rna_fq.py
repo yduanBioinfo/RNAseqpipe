@@ -61,8 +61,8 @@ def trim_one_sample(myconf, fq1, fq2, outdir):
 
     progname = 'IlluQC_PRLL.pl'
     order1 = Ordic([('-pe', fq1), (fq2, myconf['all'].get('adaptor')), 
-        ('A', ''), ('-c', cores), ('-o', filt_dir)])
-    order2 = {}
+        ('A', ''), ('-o', filt_dir)])
+    order2 = Ordic([('-c', cores)])
     
     prog = Prog_Rsp(myconf, progname, order1, order2)
     prog.run()
