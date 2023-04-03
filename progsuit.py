@@ -158,8 +158,8 @@ class Dataset(Pconf):
         return self._seqData.items()
             
 class Group(object):
-    '''
-    group in group_data
+    '''Group in group_data
+    To-do: dataframe in pandas might be a better engine.
     '''
 
     def __init__(self,conf):
@@ -180,6 +180,12 @@ class Group(object):
         for each in lst[1:]:
             tmp = each.rstrip("\n").split(sep)
             self._data[tmp[0]] = tuple(tmp[1:])
+
+    def items(self):
+        return self._data.items()
+
+    def get_row(self, key):
+        return self._data.get(key)
             
     def get_sample(self,key):
     
@@ -190,7 +196,7 @@ class Group(object):
         return self._header
         
     def get_group(self,key):
-    
+        """Get one column"""
         if key not in self._header:
             return
         outlst = []
@@ -198,9 +204,11 @@ class Group(object):
         for key, value in self._data.items():
             outlst.append((key,value[indx]))
         return outlst
+
+    def get_col(self, key):
+        return self.get_group(key)
         
     def get_groups(self):
-    
         outlst = []
         for key,value in self._data.items():
             tmp = [key]
@@ -212,11 +220,15 @@ class Group(object):
         #group for cuffdiff
         #{treat1:[treat1_1,treat1_2,...],treat2:[treat2_1,treat2_2,...]}
         #indx: which column should be as covariate
-        
         outdata = {}
         for key,value in self._data.items():
             outdata.setdefault(value[indx],[]).append(key)
         return outdata
+
+    def to_table(self, outfile, sep="\t"):
+        """Write group data into text"""
+        for line in self.get_groups():
+            outfile.write(sep.join(line)+"\n")
             
 class Group_data(Configuration):
     '''
