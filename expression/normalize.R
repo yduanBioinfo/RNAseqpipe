@@ -1,5 +1,7 @@
 #!/usr/bin/env Rscript
 
+library(NOISeq)
+library(edgeR)
 # Convert raw counts to normalization data.
 # Requires NOISeq, edgeR
 # Replace 0 with minius digit??(k = 1)
@@ -35,13 +37,11 @@ mylength <- mycounts0[,length(mycounts0[1,])]
 names(mylength) <- row.names(mycounts)
 
 # Using NOISeq do normalization.
-library(NOISeq)
 myRPKM <- rpkm(mycounts, long = mylength, k = NULL, lc = 1)
 myUQUA <- uqua(mycounts, long = mylength, k = NULL, lc = 1)
 myTMM <- tmm(mycounts, long = mylength, k = NULL, lc = 1)
 
 
-library(edgeR)
 # DESeq normalization.
 rle.f = calcNormFactors(mycounts,method="RLE")
 total <- colSums(mycounts)
