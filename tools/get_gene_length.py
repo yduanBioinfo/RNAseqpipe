@@ -2,8 +2,8 @@
 
 #from RNAseqpipe.gtf_cuff_table import Gff
 from collections import OrderedDict as Ordic
-from dypylib.bio.seq.base import GtfDict
 from dypylib.bio.seq.base import Gff
+from dypylib.bio.seq.Annotation import Genome
 
 ''' Input should be GTF.
 '''
@@ -103,10 +103,12 @@ class Gff_l(Gff):
             outlst.append((key,value))
         return outlst
 
-def get_length_array(myGTF, transcripts=False):
+def get_length_array(myGTF, transcripts=False, feature_id='gene_id'):
     """ Get list of [Gene/Tx ID, length]
     myGTF is GtfDict 
     transcripts: True, get Transcripts information, otherwise Gene.
+    feature_id: Which feature_id is used as key. Important: it can output 
+        gene_names/gene_id/gene_symbol with gene level length.
     """
     outdata = []
     if transcripts:
@@ -116,7 +118,9 @@ def get_length_array(myGTF, transcripts=False):
     else:
         dict_genes = myGTF.get_GeneDict()
         for gene in dict_genes.values():
-            outdata.append([gene.ID,len(get_represent_tx(gene))])
+            #outdata.append([gene.ID,len(get_represent_tx(gene))])
+            print(type(gene))
+            outdata.append([gene.get_attribute('gene_id'),len(get_represent_tx(gene))])
     return outdata
 
 def _get_length_array(gff, t_attr):
@@ -129,7 +133,7 @@ def _get_length_array(gff, t_attr):
 
 def len_for_Rsp(gff,t_attr='gene_id'):
     """ get length for RNAseqpip"""
-    myGTF = GtfDict(args.gff)
+    myGTF = Genome(args.gff)
     return _get_length_array(myGTF, t_attr)
 
 def len_for_Rsp_old(gff,t_attr='gene_id'):
@@ -154,13 +158,13 @@ def main(argv):
     
     parser = argparse.ArgumentParser(description='Get sequence length of each gene/transcript')
     parser.add_argument('gff',help='GTF file (GFF file is not supported)',nargs='?',type=argparse.FileType('r'))
-    parser.add_argument('-t', '--t_attr', help='id attribute name(Now is not used)',nargs='?',default='gene_id')
+    parser.add_argument('-t', '--t_attr', help='Attribute name for output(Should change to feature_id)',nargs='?',default='gene_id')
     parser.add_argument('--transcripts', help='Get length of transcript (default: gene)', action='store_true')
     parser.add_argument('-o','--outfile',nargs='?',help='outfile default: stdout',\
     default=sys.stdout,type=argparse.FileType('w'))
     args = parser.parse_args(argv)
 
-    myGTF = GtfDict(args.gff)
+    myGTF = Genome(args.gff)
     for ID, length in get_length_array(myGTF, args.transcripts):
         args.outfile.write("{}\t{}\n".format(ID, length))
         
