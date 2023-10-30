@@ -118,9 +118,7 @@ def get_length_array(myGTF, transcripts=False, feature_id='gene_id'):
     else:
         dict_genes = myGTF.get_GeneDict()
         for gene in dict_genes.values():
-            #outdata.append([gene.ID,len(get_represent_tx(gene))])
-            print(type(gene))
-            outdata.append([gene.get_attribute('gene_id'),len(get_represent_tx(gene))])
+            outdata.append([gene.get_attribute(feature_id),len(get_represent_tx(gene))])
     return outdata
 
 def _get_length_array(gff, t_attr):
@@ -158,14 +156,14 @@ def main(argv):
     
     parser = argparse.ArgumentParser(description='Get sequence length of each gene/transcript')
     parser.add_argument('gff',help='GTF file (GFF file is not supported)',nargs='?',type=argparse.FileType('r'))
-    parser.add_argument('-t', '--t_attr', help='Attribute name for output(Should change to feature_id)',nargs='?',default='gene_id')
+    parser.add_argument('-t', '--t_attr', help='Attribute name for output',nargs='?',default='gene_id')
     parser.add_argument('--transcripts', help='Get length of transcript (default: gene)', action='store_true')
     parser.add_argument('-o','--outfile',nargs='?',help='outfile default: stdout',\
     default=sys.stdout,type=argparse.FileType('w'))
     args = parser.parse_args(argv)
 
     myGTF = Genome(args.gff)
-    for ID, length in get_length_array(myGTF, args.transcripts):
+    for ID, length in get_length_array(myGTF, args.transcripts,args.t_attr):
         args.outfile.write("{}\t{}\n".format(ID, length))
         
 if __name__ == '__main__':
