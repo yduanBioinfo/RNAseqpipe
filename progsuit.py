@@ -6,8 +6,15 @@ from subprocess import PIPE
 import shlex
 import logging
 from collections import OrderedDict as Ordic
+import importlib.resources
 
 log = logging.getLogger("RNASeqpipe")
+
+
+def get_version():
+    version = importlib.resources.open_text('RNAseqpipe', 'VERSION')
+    return version.read()
+
 
 class Pconf(object):
 

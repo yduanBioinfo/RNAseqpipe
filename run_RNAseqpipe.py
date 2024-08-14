@@ -16,26 +16,42 @@ import RNAseqpipe.funcAnnot.kegg.KOannot as KOannot
 from RNAseqpipe.funcAnnot.kegg.annot2go_stat import annot2go_stat
 from RNAseqpipe.funcAnnot.annot_from_db import annot
 from RNAseqpipe.funcAnnot.kegg.koenrich.keggenrich import enrich as koenrich
-from RNAseqpipe.progsuit import Configuration, Group_data, getAbsPath, matchpath, log
+from RNAseqpipe.progsuit import Configuration, Group_data, getAbsPath
+from RNAseqpipe.progsuit import matchpath, log, get_version
 from RNAseqpipe.get_gene_length import len_for_Rsp
 from RNAseqpipe.get_geneids import get_geneids
-    
+
+
 logging.basicConfig()
 BASE_CONF = pkg_resources.resource_filename('RNAseqpipe', 'confs/base.conf')
 
+
 def add_arguments(parser):
-    parser.add_argument('-c','--conf',help='configuration file',nargs='?',\
-    default=None)
-    parser.add_argument('-g','--group_data',help='group_data file. conflict with -1 -2',nargs='?')
-    parser.add_argument('-v','--verbose',help='Out put all running information. Typically used in debug.',default=False,action='store_true')
-    parser.add_argument('-q','--quite',help='Running quitely.',default=False,action='store_true')
-    parser.add_argument('-o','--outpath',help='outpath',nargs='?')
+    parser.add_argument('-c', '--conf', help='configuration file', nargs='?',
+                        default=None)
+    parser.add_argument('-g', '--group_data',
+                        help='group_data file. conflict with -1 -2', nargs='?')
+    parser.add_argument('-v', '--verbose',
+                        help='Out put all running information.'
+                        ' Typically used in debug.',
+                        default=False, action='store_true')
+    parser.add_argument('-q', '--quite', help='Running quitely.',
+                        default=False, action='store_true')
+    parser.add_argument('-o', '--outpath', help='outpath', nargs='?')
+    parser.add_argument('--version', action='version',
+                        version=get_version())
+
 
 def main(argv):
     parser = argparse.ArgumentParser(description='RNA-seq analyse pipeline')
-    parser.add_argument('program',help='all for whole pip/ali for alignment/ass for assembly/\
-    cptDE for compute different expression',choices=['all','QC','cptDE','seq2exp','func','verse','salmon'])
-    args=parser.parse_args(argv[1:2])
+    parser.add_argument('program', help='all for whole pipe;'
+                        ' ali for alignment; ass for assembly;'
+                        'cptDE for compute different expression',
+                        choices=['all', 'QC', 'cptDE', 'seq2exp', 'func',
+                                 'verse', 'salmon'])
+    parser.add_argument('--version', action='version',
+                        version=get_version())
+    args = parser.parse_args(argv[1:2])
 
     if args.program == 'QC':
         from RNAseqpipe.QC.qc_rna_fq import main as sub_main
@@ -49,7 +65,7 @@ def main(argv):
         from RNAseqpipe.seq2exp import main as sub_main
         # should avoid position parser.
         sub_main(argv[1:])
-        
+
     if args.program == 'func':
         from RNAseqpipe.func import main as sub_main
         sub_main(argv[1:])
@@ -61,7 +77,7 @@ def main(argv):
     if args.program == 'salmon':
         from RNAseqpipe.expression.salmon_quantify import main as sub_main
         sub_main(argv[1:])
-        
+
+
 if __name__ == '__main__':
-    import sys
     main(sys.argv)
