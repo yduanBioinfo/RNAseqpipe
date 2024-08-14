@@ -34,7 +34,8 @@ setuptools.setup(
         name: ['confs/*'] + ['group_data/*'] + 
               glob.glob('test/**', recursive=True) + 
               glob.glob('**/*.R', recursive=True) + 
-              glob.glob('**/*.sh', recursive=True)
+              glob.glob('**/*.sh', recursive=True) +
+              ['VERSION']
     },
     scripts=[
         'expression/count_merge',
