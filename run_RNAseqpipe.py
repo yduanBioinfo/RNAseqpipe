@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 '''
-_version = 0.2.3
 wrapper for RNAseqpip programs
 '''
 from __future__ import print_function
@@ -22,7 +21,7 @@ from RNAseqpipe.get_gene_length import len_for_Rsp
 from RNAseqpipe.get_geneids import get_geneids
     
 logging.basicConfig()
-BASE_CONF=pkg_resources.resource_filename('RNAseqpipe', 'confs/base.conf')
+BASE_CONF = pkg_resources.resource_filename('RNAseqpipe', 'confs/base.conf')
 
 def add_arguments(parser):
     parser.add_argument('-c','--conf',help='configuration file',nargs='?',\
