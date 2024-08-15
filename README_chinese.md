@@ -47,11 +47,11 @@ pip install dypylib
 本包建立了配置文件系统、元数据文件和多种分析流程。可以较为灵活地选择软件和配置参数。
 ## Install ##
 ```
-# 使用pip进行安装
+# 使用pip进行安装 个人用户
 pip install RNAseqpipe
 # 在RNAseqpipe_data目录下生成配置文件和测试文件（RNAseqpipe_data
 # 可换成任意文件名）。
-post_RNAseqpipe_install -o RNAseqpipe_data
+post_RNAseqpipe_install -u -o RNAseqpipe_data
 # 运行测试
 cd RNAseqpipe_data/test/test_bash/
 sh cmd

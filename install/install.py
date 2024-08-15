@@ -4,7 +4,7 @@
 
 import sys, os
 import pkg_resources
-from progsuit import log
+from RNAseqpipe.progsuit import log
 from RNAseqpipe.install.init_base_conf import fill_prog_path
 from RNAseqpipe.install.copy_conf import copy_static
 from RNAseqpipe.install.copy_test import copy_test_files
@@ -23,7 +23,6 @@ def main(argv):
     args = parser.parse_args(argv[1:])
 
     if not args.user_only:
-        print("Run step A")
         # Init base.conf
         base_template = pkg_resources.resource_filename('RNAseqpipe',
                                                         'confs/base.template')
@@ -40,7 +39,6 @@ def main(argv):
     copy_static(args.outdir)
     copy_test_files(args.outdir)
 
-    print("Run step B")
     # Init local base files.
     base_template = os.path.join(args.outdir, 'confs/base.template')
     base_conf = os.path.join(args.outdir, 'confs/base.conf')
