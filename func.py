@@ -49,13 +49,13 @@ def func_annot(myconf,DEfile,template_gff,outpath=None,godb=None,kodb=None):#out
     def annot_godb():#annot db and annot DE genes
         godb,godb1 = GOannot.blast2go(myconf,geneidf,godir,gff)#why none in last version?
         try:os.symlink(godb,ogodb)#16/8/17
-        except:pass
+        except Exception:pass
         go_annot(godb)
         
     def annot_kodb():#annot db and annot DE genes
         kodb = KOannot.koannot(myconf,geneidf,kodir,gff)
         try:os.symlink(kodb,okodb)#16/8/17
-        except:pass
+        except Exception:pass
         ko_annot(kodb)
         
     if not godb or not kodb:
